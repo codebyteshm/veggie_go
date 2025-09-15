@@ -64,7 +64,7 @@ class CommonButton extends StatelessWidget {
           height: height,
           margin: buttonMargin ?? EdgeInsets.symmetric(horizontal: 20.w),
           decoration: BoxDecoration(
-              color: backgroundColor ?? colorDC4326,
+              color: backgroundColor ?? colorPrimary,
               borderRadius: borderRadius ?? BorderRadius.circular(8.r),
               boxShadow: [
                 BoxShadow(

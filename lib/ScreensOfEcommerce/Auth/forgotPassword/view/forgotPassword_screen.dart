@@ -1,8 +1,7 @@
 
-import 'package:country_pickers/country.dart';
+
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_button.dart';
-import 'package:e_commerce46/Common/country_picker.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
@@ -68,17 +67,16 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                         ),
                       ),
                       SizedBox(height: 50.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: _getPhoneNumber(),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      //   child: _getPhoneNumber(),
+                      // ),
                       SizedBox(height: 50.h),
                       CommonButton(
                         onTap: () {
                           FocusScope.of(context).requestFocus(FocusNode());
                           controller.onTapLoginButton(ForgotRequestModel(
-                            countryCode:
-                                "+${controller.selectedDialogCountry.value.phoneCode}",
+                            // countryCode: "+${controller.selectedDialogCountry.value.phoneCode}",
                             phoneNumber: controller.phoneNumberController.text,
                           ));
                         },
@@ -101,19 +99,19 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
         ));
   }
 
-  Widget _getPhoneNumber() {
-    return Obx(
-      () => CountryPicker(
-        listOfFocusNode: controller.focusNodes,
-        index: 0,
-        focusNode: controller.focusNodes[0],
-        controller: controller.phoneNumberController,
-        onValuePicked: (Country country) {
-          controller.selectedDialogCountry.value = country;
-        },
-        textInputAction: TextInputAction.done,
-        selectedDialogCountry: controller.selectedDialogCountry.value,
-      ),
-    );
-  }
+  // Widget _getPhoneNumber() {
+  //   return Obx(
+  //     () => CountryPicker(
+  //       listOfFocusNode: controller.focusNodes,
+  //       index: 0,
+  //       focusNode: controller.focusNodes[0],
+  //       controller: controller.phoneNumberController,
+  //       onValuePicked: (Country country) {
+  //         controller.selectedDialogCountry.value = country;
+  //       },
+  //       textInputAction: TextInputAction.done,
+  //       selectedDialogCountry: controller.selectedDialogCountry.value,
+  //     ),
+  //   );
+  // }
 }

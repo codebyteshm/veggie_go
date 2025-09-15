@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
             debugShowCheckedModeBanner: false,
 
-            title: bigtraderApplicants,
+            title: VeggigoApplicants,
             theme: AppTheme.lightTheme, initialRoute: RoutesConstants.splashScreen, getPages: GetPages.getPages);
       },
     );

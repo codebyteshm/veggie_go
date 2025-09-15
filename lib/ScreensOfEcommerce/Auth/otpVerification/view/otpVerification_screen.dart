@@ -62,7 +62,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                       Text(
                         weJustSentYou,
                         style: openSansMedium(
-                          textColor: color6A6A6A,
+                          textColor: colorPrimary.withOpacity(0.70),
                           fontSize: 16.sp,
                         ),
                       ),
@@ -79,7 +79,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                           ),
                           SizedBox(width: 4.w),
                           Text(
-                            controller.email[0],
+                            'text---------',
                             style: openSansBold(
                               textColor: color282829,
                               fontSize: 16.sp,

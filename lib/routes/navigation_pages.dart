@@ -1,5 +1,9 @@
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/forgotPassword/binding/forgotPassword_binding.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/forgotPassword/view/forgotPassword_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/binding/login_binding.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/view/login_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/otpVerification/binding/otpVerification_binding.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/otpVerification/view/otpVerification_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/SplashScreen/splash_screen.dart';
 import 'package:e_commerce46/routes/routes_strings.dart' show RoutesConstants;
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -40,21 +44,21 @@ class GetPages {
 //       page: () => SearchProductView(),
 //       binding: SearchProductBinding(),
 //     ),
-//     GetPage(
-//       name: RoutesConstants.otpVerificationView,
-//       page: () => OtpVerificationView(),
-//       binding: OtpVerificationBinding(),
-//     ),
+    GetPage(
+      name: RoutesConstants.otpVerificationView,
+      page: () => OtpVerificationView(),
+      binding: OtpVerificationBinding(),
+    ),
 //     GetPage(
 //       name: RoutesConstants.mainScreen,
 //       page: () => MainScreen(),
 //       binding: BottomTabBarBinding(),
 //     ),
-//     GetPage(
-//       name: RoutesConstants.forgotPasswordView,
-//       page: () => ForgotPasswordView(),
-//       binding: ForgotPasswordBinding(),
-//     ),
+    GetPage(
+      name: RoutesConstants.forgotPasswordView,
+      page: () => ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
 //     GetPage(
 //       name: RoutesConstants.productDetailsView,
 //       page: () => ProductDetailsView(),

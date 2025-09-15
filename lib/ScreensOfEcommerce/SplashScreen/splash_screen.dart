@@ -1,19 +1,14 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/image.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
 import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
-import 'package:e_commerce46/utils/utills.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -27,6 +22,9 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
 
   @override
   void initState() {
+      Timer(const Duration(seconds: 5), () {
+              Get.offAllNamed(RoutesConstants.loginView);
+      });
     // initPackageInfo();
     // SharedPreferenceUtil.putBool(nCommonClick, false);
     // if (isShowDialog.value) {
@@ -131,8 +129,9 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: colorDC4326,
-      body: Image.asset(splashGif, fit: BoxFit.cover, height: Get.height, width: Get.width),
+      extendBody: true,
+      backgroundColor: colorPrimary,
+      body: Image.asset(PNGImages.splash, fit: BoxFit.cover, height: Get.height, width: Get.width),
     );
   }
 

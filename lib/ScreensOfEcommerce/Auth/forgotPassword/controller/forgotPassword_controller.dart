@@ -1,5 +1,4 @@
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/utils/utils.dart';
+
 import 'package:dio/dio.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
@@ -18,8 +17,8 @@ class ForgotPasswordController extends GetxController {
   List<FocusNode> focusNodes = [
     FocusNode(),
   ];
-  Rx<Country> selectedDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('974').obs;
+  // Rx<Country> selectedDialogCountry =
+  //     CountryPickerUtils.getCountryByPhoneCode('974').obs;
   RxBool isLoading = false.obs;
   ForgotRespnse? forgotRespnse;
   void forgotPassword({required ForgotRequestModel forgotRequestModel}) {
@@ -32,11 +31,11 @@ class ForgotPasswordController extends GetxController {
       forgotRespnse = ForgotRespnse.fromJson(value.data);
       SharedPreferenceUtil.putInt(forgotId, forgotRespnse?.payload?.id ?? 0);
       Get.offAllNamed(RoutesConstants.otpVerificationView, arguments: [
-        "+${selectedDialogCountry.value.phoneCode} ${phoneNumberController.text}",
+        // "+${selectedDialogCountry.value.phoneCode} ${phoneNumberController.text}",
         false,
         forgotRespnse?.payload?.otp,
         0,
-        "+${selectedDialogCountry.value.phoneCode}",
+        // "+${selectedDialogCountry.value.phoneCode}",
         "${phoneNumberController.text}"
       ]);
     }).catchError((error) {

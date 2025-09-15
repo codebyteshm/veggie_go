@@ -1,7 +1,7 @@
-const String bigtraderApplicants = "BigTrader";
+const String VeggigoApplicants = "Veggigo";
 
 //Login
-const String ecommerce = "Buy Local";
+const String appSubText = "Vegetable and Foot Service";
 const String commodityTrade = "Buy Global";
 const String service = "Buy Services";
 const String welcomeBack = "Welcome back";
@@ -18,7 +18,6 @@ const login = "Login";
 const asGuest = "As Guest";
 
 //CreateAccount
-
 const hiThereWelcome = "Hi there welcome";
 const hiThereWelcomeSubText = "Please create your new account For.";
 const buyer = "Buyer";
@@ -68,7 +67,7 @@ const resetPasswordSubText = "Please enter new password and confirm password";
 const sendNow = "Send Now";
 
 //GetStarted
-const String welcomeToBigTrader = "Welcome to Big Trader";
+const String welcomeToVeggigo = "Welcome to Big Trader";
 const String pleaseCreateYourAccount = "Please Create your new account";
 const String services = "Buy Services";
 const String termsConditions = "Terms & Conditions";

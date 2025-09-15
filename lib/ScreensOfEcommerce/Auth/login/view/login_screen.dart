@@ -1,10 +1,9 @@
 
-import 'package:country_pickers/country.dart';
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_appbar.dart';
 import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/common_textField.dart';
-import 'package:e_commerce46/Common/country_picker.dart';
+import 'package:e_commerce46/Common/common_widget.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
@@ -18,7 +17,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../main.dart';
 import '../../../../utils/utills.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -67,37 +65,18 @@ class LoginView extends GetView<LoginController> {
                           SizedBox(height: 10.h),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 45.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  ecommerce,
-                                  style: openSansSemiBold(
-                                    textColor: color00394D,
-                                    fontSize: 14.sp,
-                                  ),
-                                ),
-                                Text(
-                                  commodityTrade,
-                                  style: openSansSemiBold(
-                                    textColor: color00394D,
-                                    fontSize: 14.sp,
-                                  ),
-                                ),
-                                Text(
-                                  service,
-                                  style: openSansSemiBold(
-                                    textColor: color00394D,
-                                    fontSize: 14.sp,
-                                  ),
-                                )
-                              ],
+                            child: Text(
+                              appSubText,
+                              style: openSansSemiBold(
+                                textColor: color00394D,
+                                fontSize: 14.sp,
+                              ),
                             ),
                           ),
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 150.h),
+                        padding: EdgeInsets.only(top: 160.h),
                         child: Container(
                           width: Get.width,
                           height: Get.height,
@@ -119,7 +98,7 @@ class LoginView extends GetView<LoginController> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 20.h),
+                                  SizedBox(height: 30.h),
                                   Text(
                                     welcomeBack,
                                     style: openSansBold(
@@ -130,52 +109,34 @@ class LoginView extends GetView<LoginController> {
                                   Text(
                                     welcomeBackSubText,
                                     style: openSansMedium(
-                                        fontSize: 16.sp,
-                                        textColor: color6A6A6A),
+                                        fontSize: 14.sp,
+                                        textColor: colorPrimary.withOpacity(0.70)),
                                   ),
                                   SizedBox(height: 20.h),
                                   _getPhoneNumber(),
-                                  SizedBox(height: 20.h),
-                                  _getPassword(),
-                                  SizedBox(height: 24.h),
-                                  Center(
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.toNamed(
-                                            RoutesConstants.forgotPasswordView);
-                                      },
-                                      child: Text(
-                                        forgotPassword,
-                                        style: openSansMedium(
-                                            fontSize: 14.sp,
-                                            textColor: color949494),
-                                      ),
-                                    ),
-                                  ),
                                   SizedBox(height: 24.h),
                                   CommonButton(
                                     onTap: () async {
                                       FocusScope.of(context)
                                           .requestFocus(FocusNode());
                                       if(SharedPreferenceUtil.getString(
-                                          fcmTokenKey)==""){
-                                        String? fcmToken = '';
+                                          fcmTokenKey)==""){String? fcmToken = '';
                                         // String? fcmToken = await FirebaseMessaging.instance.getToken();
                                         print("FCM Token: $fcmToken");
                                         await SharedPreferenceUtil.putString(fcmTokenKey, fcmToken);
                                       }
-                                      controller.onTapLoginButton(LoginRequestModel(
-                                          countryCode:
-                                              "+${controller.selectedDialogCountry.value.phoneCode}",
-                                          phoneNumber: controller
-                                              .phoneNumberController.text,
-                                          password: controller
-                                              .passWordController.text,
-                                          deviceId:
-                                              await Utils.getDeviceId() ?? "",
-                                          deviceType: Utils.getDeviceTypeID(),
-                                          pushToken:
-                                              SharedPreferenceUtil.getString(fcmTokenKey)));
+                                      Get.toNamed(RoutesConstants.otpVerificationView);
+                                      // controller.onTapLoginButton(LoginRequestModel(
+                                      //     // countryCode:"+${controller.selectedDialogCountry.value.phoneCode}",
+                                      //     phoneNumber: controller
+                                      //         .phoneNumberController.text,
+                                      //     password: controller
+                                      //         .passWordController.text,
+                                      //     deviceId:
+                                      //         await Utils.getDeviceId() ?? "",
+                                      //     deviceType: Utils.getDeviceTypeID(),
+                                      //     pushToken:
+                                      //         SharedPreferenceUtil.getString(fcmTokenKey)));
                                       // isUserLogin = true;
                                     },
                                     buttonMargin: EdgeInsets.zero,
@@ -189,7 +150,7 @@ class LoginView extends GetView<LoginController> {
                                         doNotAcc,
                                         style: openSansRegular(
                                             fontSize: 14.sp,
-                                            textColor: color969696),
+                                            textColor: colorPrimary.withOpacity(0.70)),
                                       ),
                                       SizedBox(width: 8.w),
                                       InkWell(
@@ -201,7 +162,7 @@ class LoginView extends GetView<LoginController> {
                                           createAccount,
                                           style: openSansBold(
                                               fontSize: 14.sp,
-                                              textColor: colorDC4326),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -249,7 +210,7 @@ class LoginView extends GetView<LoginController> {
                                           asGuest,
                                           style: openSansBold(
                                               fontSize: 16.sp,
-                                              textColor: colorDC4326),
+                                              textColor: colorPrimary),
                                         ),
                                       ),
                                     ],
@@ -278,43 +239,24 @@ class LoginView extends GetView<LoginController> {
   }
 
   Widget _getPhoneNumber() {
-    return Obx(
-      () => CountryPicker(
-        listOfFocusNode: controller.focusNodes,
-        index: 0,
-        focusNode: controller.focusNodes[0],
-        controller: controller.phoneNumberController,
-        textInputAction: TextInputAction.next,
-        onValuePicked: (Country country) {
-          controller.selectedDialogCountry.value = country;
-        },
-        selectedDialogCountry: controller.selectedDialogCountry.value,
-      ),
-    );
-  }
-
-  Widget _getPassword() {
-    return Obx(
-      () => CommonTextFormField(
-          controller: controller.passWordController,
-          focusNode: controller.focusNodes[1],
+    return CommonTextFormField(
+          controller: controller.phoneNumberController,
+          focusNode: controller.focusNodes[0],
           listOfFocusNode: controller.focusNodes,
-          index: 1,
-          hint: password,
+          index: 0,
+          hint: mobileNumber,
           textInputAction: TextInputAction.done,
-          passwordVisible: controller.isHidden.value,
-          suffixIconWidget: Padding(
-            padding: EdgeInsets.only(top: 15.h, bottom: 7.h),
-            child: InkWell(
-              onTap: () {
-                controller.togglePasswordView();
-              },
-              child: !controller.isHidden.value
-                  ? SvgPicture.asset(SVGImages.eye)
-                  : SvgPicture.asset(SVGImages.eyeHide),
+          prefixIcon: SizedBox(
+            width: 110,
+            height: 45,
+            child: Row(
+              children: [
+                SvgPicture.asset(SVGImages.phone),
+                widthBox(20),
+                Text('+91',style: openSansBold(),)
+              ],
             ),
           ),
-          prefixIconName: SVGImages.lock),
     );
   }
 }

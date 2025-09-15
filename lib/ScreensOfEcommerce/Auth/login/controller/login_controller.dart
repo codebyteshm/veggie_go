@@ -1,6 +1,4 @@
 
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/utils/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
@@ -22,8 +20,8 @@ class LoginController extends GetxController {
     FocusNode(),
   ];
   RxBool isLoading = false.obs;
-  Rx<Country> selectedDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('974').obs;
+  // Rx<Country> selectedDialogCountry =
+  //     CountryPickerUtils.getCountryByPhoneCode('974').obs;
 
   LoginResponse? loginModel;
   final isHidden = true.obs;
