@@ -224,8 +224,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
                       ))
                   : null),
           hintText: widget.hint,
-          hintStyle: widget.hintStyle ??
-              openSansMedium(fontSize: 16.sp, textColor: color969696),
+          hintStyle: widget.hintStyle ?? openSansMedium(fontSize: 16.sp, textColor: widget.hintColor ?? color969696),
           errorMaxLines: 2,
           contentPadding: widget.contentPadding ??
               EdgeInsets.symmetric(
@@ -238,7 +237,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
             borderSide: BorderSide(color: colorDFDFDF, width: 1),
           ),
           focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: colorDC4326, width: 1),
+            borderSide: BorderSide(color: colorPrimary, width: 1),
           ),
           // border: OutlineInputBorder(
           //     borderRadius: BorderRadius.circular(radius ?? 20.r),

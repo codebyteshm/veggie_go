@@ -63,12 +63,8 @@ class LoginController extends GetxController {
       Utils.showErrorSnackBar('Please enter mobile number ');
       return false;
     }
-    if (phoneNumber.length < 5) {
-      Utils.showErrorSnackBar('Please enter velid mobile number ');
-      return false;
-    }
-    if (password.isEmpty || password == "") {
-      Utils.showErrorSnackBar('Please enter password ');
+    if (phoneNumber.length < 10) {
+      Utils.showErrorSnackBar('Please enter valid mobile number ');
       return false;
     }
     return true;
@@ -78,16 +74,17 @@ class LoginController extends GetxController {
     if (isValidateLogin(
         password: loginRequestModel.password.toString(),
         phoneNumber: loginRequestModel.phoneNumber.toString())) {
-      userLogin(
-        loginRequestModel: LoginRequestModel(
-          countryCode: loginRequestModel.countryCode.toString(),
-          phoneNumber: loginRequestModel.phoneNumber.toString(),
-          password: loginRequestModel.password.toString(),
-          deviceId: loginRequestModel.deviceId.toString(),
-          deviceType: loginRequestModel.deviceType.toString(),
-          pushToken: loginRequestModel.pushToken.toString(),
-        ),
-      );
+      Get.toNamed(RoutesConstants.otpVerificationView,arguments: [phoneNumberController]);
+      // userLogin(
+      //   loginRequestModel: LoginRequestModel(
+      //     countryCode: loginRequestModel.countryCode.toString(),
+      //     phoneNumber: loginRequestModel.phoneNumber.toString(),
+      //     password: loginRequestModel.password.toString(),
+      //     deviceId: loginRequestModel.deviceId.toString(),
+      //     deviceType: loginRequestModel.deviceType.toString(),
+      //     pushToken: loginRequestModel.pushToken.toString(),
+      //   ),
+      // );
     }
   }
 }

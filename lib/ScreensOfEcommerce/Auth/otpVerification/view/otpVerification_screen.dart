@@ -101,10 +101,10 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                       SizedBox(height: 50.h),
                       InkWell(
                         onTap: () {
-                          controller.forgotPassword(
-                              forgotRequestModel: ForgotRequestModel(
-                                  countryCode: controller.email[4],
-                                  phoneNumber: controller.email[5]));
+                          // controller.forgotPassword(
+                          //     forgotRequestModel: ForgotRequestModel(
+                          //         countryCode: controller.email[4],
+                          //         phoneNumber: controller.email[5]));
                         },
                         child: Text(
                           resendOTP,

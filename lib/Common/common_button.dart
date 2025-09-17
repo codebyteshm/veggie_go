@@ -61,7 +61,7 @@ class CommonButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
           width: width,
-          height: height,
+          height: height ?? 55.h,
           margin: buttonMargin ?? EdgeInsets.symmetric(horizontal: 20.w),
           decoration: BoxDecoration(
               color: backgroundColor ?? colorPrimary,
@@ -76,7 +76,7 @@ class CommonButton extends StatelessWidget {
               border: border),
           child: Padding(
             padding: EdgeInsets.symmetric(
-                vertical: verticalPadding ?? 16.h,
+                vertical: verticalPadding ?? 10.h,
                 horizontal: horizontalPadding ?? 0.0),
             child: Center(
               child: showLoading

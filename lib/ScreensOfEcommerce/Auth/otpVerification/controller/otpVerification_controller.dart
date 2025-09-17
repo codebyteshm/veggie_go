@@ -21,11 +21,11 @@ class OtpVerificationController extends GetxController {
   StreamController<ErrorAnimationType> errorController =
       StreamController<ErrorAnimationType>.broadcast();
   RxBool isLoading = false.obs;
-  var email;
+  var phoneNumber;
 
   @override
   void onInit() {
-    email = Get.arguments;
+    phoneNumber = Get.arguments;
     // otpController.text = email[2].toString();
     super.onInit();
   }
