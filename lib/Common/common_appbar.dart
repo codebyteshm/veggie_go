@@ -14,25 +14,25 @@ class CommonAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
   const CommonAppBarWidget(
       {Key? key,
-      this.title,
-      this.onTap,
-      this.actions,
-      this.backColor,
-      this.isShowBackArrow = true,
-      this.isShowCloseIcon = false,
-      this.icon,
-      this.titleWidget,
-      this.centerTitle,
-      this.backWidget,
-      this.color,
-      this.textStyle,
-      this.isShowTitle = true,
-      this.statusBarBrightness,
-      this.paddingBack,
-      this.paddingText,
-      this.toolbarHeight,
-      this.elevation,
-      this.statusBarIconBrightness})
+        this.title,
+        this.onTap,
+        this.actions,
+        this.backColor,
+        this.isShowBackArrow = true,
+        this.isShowCloseIcon = false,
+        this.icon,
+        this.titleWidget,
+        this.centerTitle,
+        this.backWidget,
+        this.color,
+        this.textStyle,
+        this.isShowTitle = true,
+        this.statusBarBrightness,
+        this.paddingBack,
+        this.paddingText,
+        this.toolbarHeight,
+        this.elevation,
+        this.statusBarIconBrightness, required bool showBackButton,  TabBar? bottom})
       : super(key: key);
 
   final String? title;
@@ -77,46 +77,46 @@ class CommonAppBarWidget extends StatelessWidget
       toolbarHeight: toolbarHeight ?? 35.h,
       leading: isShowBackArrow
           ? isShowCloseIcon
-              ? icon
-              : backWidget ??
-                  GestureDetector(
-                    onTap: onTap ??
-                        () {
-                          Get.back();
-                        },
-                    child: Padding(
-                      padding: paddingBack ??
-                          EdgeInsets.only(
-                              left: 8.w, right: 8.w, top: 10.h, bottom: 5.h),
-                      child: SvgPicture.asset(
-                        SVGImages.appbarBack,
-                        color: backColor,
-                      ),
-                    ),
-                  )
+          ? icon
+          : backWidget ??
+          GestureDetector(
+            onTap: onTap ??
+                    () {
+                  Get.back();
+                },
+            child: Padding(
+              padding: paddingBack ??
+                  EdgeInsets.only(
+                      left: 8.w, right: 8.w, top: 10.h, bottom: 5.h),
+              child: SvgPicture.asset(
+                SVGImages.appbarBack,
+                color: backColor,
+              ),
+            ),
+          )
           : const SizedBox.shrink(),
       centerTitle: centerTitle ?? true,
       title: isShowTitle
           ? centerTitle == false
-              ? Padding(
-                  padding: EdgeInsets.only(left: 22.w),
-                  child: TextWidget(
-                    text: title ?? '',
-                    color: color1C1C1C,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18.sp,
-                  ),
-                )
-              : Padding(
-                  padding:
-                      paddingText ?? EdgeInsets.only(top: 10.h, bottom: 5.h),
-                  child: Text(
-                    title ?? '',
-                    style: textStyle ??
-                        openSansSemiBold(
-                            fontSize: 18.sp, textColor: color1C1C1C),
-                  ),
-                )
+          ? Padding(
+        padding: EdgeInsets.only(left: 22.w),
+        child: TextWidget(
+          text: title ?? '',
+          color: color1C1C1C,
+          fontWeight: FontWeight.w600,
+          fontSize: 18.sp,
+        ),
+      )
+          : Padding(
+        padding:
+        paddingText ?? EdgeInsets.only(top: 10.h, bottom: 5.h),
+        child: Text(
+          title ?? '',
+          style: textStyle ??
+              openSansSemiBold(
+                  fontSize: 18.sp, textColor: color1C1C1C),
+        ),
+      )
           : titleWidget,
       actions: actions,
     );

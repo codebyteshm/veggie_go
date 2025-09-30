@@ -20,8 +20,7 @@ class LoginController extends GetxController {
     FocusNode(),
   ];
   RxBool isLoading = false.obs;
-  // Rx<Country> selectedDialogCountry =
-  //     CountryPickerUtils.getCountryByPhoneCode('974').obs;
+  // Rx<Country> selectedDialogCountry = CountryPickerUtils.getCountryByPhoneCode('974').obs;
 
   LoginResponse? loginModel;
   final isHidden = true.obs;
@@ -57,8 +56,7 @@ class LoginController extends GetxController {
     });
   }
 
-  bool isValidateLogin(
-      {required String phoneNumber, required String password}) {
+  bool isValidateLogin({required String phoneNumber, required String password}) {
     if (phoneNumber.isEmpty || phoneNumber == "") {
       Utils.showErrorSnackBar('Please enter mobile number ');
       return false;
@@ -74,7 +72,10 @@ class LoginController extends GetxController {
     if (isValidateLogin(
         password: loginRequestModel.password.toString(),
         phoneNumber: loginRequestModel.phoneNumber.toString())) {
-      Get.toNamed(RoutesConstants.otpVerificationView,arguments: [phoneNumberController]);
+      // Navigate directly to home screen
+      Get.offAllNamed(RoutesConstants.homeView);
+      // Previous OTP verification navigation (commented out)
+      // Get.toNamed(RoutesConstants.otpVerificationView,arguments: [phoneNumberController]);
       // userLogin(
       //   loginRequestModel: LoginRequestModel(
       //     countryCode: loginRequestModel.countryCode.toString(),

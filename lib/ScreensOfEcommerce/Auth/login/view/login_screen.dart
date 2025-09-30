@@ -8,6 +8,7 @@ import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_controller.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_request.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Home/controller/home_controller.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
 import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
@@ -28,7 +29,7 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       backgroundColor: whiteColor,
       extendBodyBehindAppBar: true,
-      appBar: const CommonAppBarWidget(toolbarHeight: 0, statusBarIconBrightness: Brightness.dark, statusBarBrightness: Brightness.light, color: Colors.transparent),
+      appBar: const CommonAppBarWidget(toolbarHeight: 0, statusBarIconBrightness: Brightness.dark, statusBarBrightness: Brightness.light, color: Colors.transparent, showBackButton: false,),
       body: InkWell(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -132,6 +133,30 @@ class LoginView extends GetView<LoginController> {
                                     ),
                                   ],
                                 ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.toNamed(RoutesConstants.walletDashboard);
+                                  },
+                                  child: Text('Wallet', style: openSansBold(fontSize: 14.sp)),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.toNamed(RoutesConstants.myOrders);
+                                  },
+                                  child: Text('My order', style: openSansBold(fontSize: 14.sp)),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.toNamed(RoutesConstants.profile);
+                                  },
+                                  child: Text('Profile', style: openSansBold(fontSize: 14.sp)),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.toNamed(RoutesConstants.orderSuccess);
+                                  },
+                                  child: Text('Order success', style: openSansBold(fontSize: 14.sp)),
+                                ),
                                 SizedBox(height: 186.h),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -143,8 +168,8 @@ class LoginView extends GetView<LoginController> {
                                     SizedBox(width: 8.w),
                                     InkWell(
                                       onTap: () {
-                                        // Get.lazyPut<HomeController>(
-                                        //     () => HomeController());
+                                        Get.lazyPut<HomeController>(
+                                            () => HomeController());
                                         // Get.lazyPut<CategoriesController>(
                                         //     () => CategoriesController());
                                         // Get.lazyPut<MyCartController>(

@@ -47,4 +47,13 @@ class RoutesConstants {
   static const viewCartView = "/ViewCartView";
   static const cTSuccessView = "/CTSuccessView";
   static const cTChatDetailsView = "/CTChatDetailsView";
+
+  static const orderSuccess = "/OrderSuccess";
+
+  // Profile & Account
+  static const profile = "/Profile";
+  static const myOrders = "/MyOrders";
+  static const orderDetails = "/OrderDetails";
+  static const walletDashboard = "/WalletDashboard";
+  static const transactionHistory = "/TransactionHistory";
 }

@@ -248,6 +248,74 @@ const String saySomething = "Say Something...";
 const String allowOnlyOneAddressToAdd = "You can add only one address";
 const String edit = "Edit";
 const String delete = "Delete";
+
+// Order Success
+const String orderPlacedSuccessfully = "Order Placed Successfully!";
+const String orderId = "Order ID";
+const String orderDate = "Order Date";
+const String orderTotal = "Order Total";
+const String paymentMethod = "Payment Method";
+const String deliveryAddress = "Delivery Address";
+const String expectedDelivery = "Expected Delivery";
+const String trackOrder = "Track Order";
+const String continueShopping = "Continue Shopping";
+
+// Create Account
+const String fullName = "Full Name";
+const String email = "Email";
+const String phoneNumber = "Phone Number";
+const String createPassword = "Create Password";
+const String alreadyHaveAccount = "Already have an account? ";
+const String signUp = "Sign Up";
+const String bySigningUp = "By signing up, you agree to our ";
+const String termsOfService = "Terms of Service";
+const String and = " and ";
+
+// Profile
+const String personalInfo = "Personal Information";
+const String myOrders = "My Orders";
+const String wallet = "Wallet";
+const String helpCenter = "Help Center";
+const String logOut = "Log Out";
+
+// My Orders
+const String all = "All";
+const String processing = "Processing";
+const String delivered = "Delivered";
+const String cancelled = "Cancelled";
+const String order = "Order ";
+const String items = " items";
+const String viewDetails = "View Details";
+
+// Order Details
+const String orderSummary = "Order Summary";
+const String deliveryInfo = "Delivery Information";
+const String paymentInfo = "Payment Information";
+const String subtotal = "Subtotal";
+const String shipping = "Shipping";
+const String discount = "Discount";
+const String tax = "Tax";
+const String grandTotal = "Grand Total";
+
+// Wallet
+const String walletBalance = "Wallet Balance";
+const String addMoney = "Add Money";
+const String recentTransactions = "Recent Transactions";
+const String transactionHistory = "Transaction History";
+const String amount = "Amount";
+const String date = "Date";
+const String status = "Status";
+const String credit = "Credit";
+const String debit = "Debit";
+
+// Delete Account
+const String deleteAccountTitle = "Delete Account";
+const String deleteAccountMessage = "Are you sure you want to delete your account? This action cannot be undone.";
+const String cancel = "Cancel";
+const String accountDeleted = "Account Deleted";
+const String accountDeletedMessage = "Your account has been successfully deleted. We're sorry to see you go!";
+
+// Common
 const String addNewAddress = "Add New Address";
 const String changeYourPassword = "Change Your Password";
 const String changeYourPasswordSub = "Update your old password with new.";
@@ -262,20 +330,9 @@ const String message = "Message";
 //-----------------------------------------------------------------------------------------------------
 
 //Commodity Trade
-
-const String chat = "Chat";
 const String trackRequest = "Track Request";
 const String category = "Category";
-const String addedProducts = "Added products (2)";
-const String submitEnquiry = "Submit Enquiry";
-const String totalQuantity = "Total Quantity";
 const String addNowText = "Add Now";
 const String view = "View";
 const String addToCart = "Add to Cart";
-const String quoteEndDate = "Quote End date";
-const String congratulations = "Congratulations your enquiry\nis created";
 const String yourEnquiryID = "Your Enquiry ID: BRFQ_20230209179615";
-const String successMsg =
-    "We will call you for some more details and\nsend you the best rate you desire for";
-const String backToHome = "Back to Home";
-const String trackMyRequest = "Track My Request";

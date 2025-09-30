@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Auth/forgotPassword/controller/forGot_request.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
@@ -45,25 +44,25 @@ class OtpVerificationController extends GetxController {
       // email[1] == true
       //     ? SharedPreferenceUtil.putBool(isLoginKey, true)
       //     : SharedPreferenceUtil.putBool(isLoginKey, false);
-      if (email[1] == true) {
-        if (email[3] == 1) {
-          SharedPreferenceUtil.putBool(isLoginKey, false);
-        } else {
-          SharedPreferenceUtil.putBool(isLoginKey, false);
-        }
-      } else {
-        SharedPreferenceUtil.putBool(isLoginKey, false);
-      }
-      if (email[1] == true) {
-        if (email[3] == 1) {
-          Get.offAllNamed(RoutesConstants.loginView);
-        } else {
-          Get.offAllNamed(RoutesConstants.loginView);
-          Utils.showErrorSnackBar("Seller Account Created");
-        }
-      } else {
-        Get.offAllNamed(RoutesConstants.resetPasswordView);
-      }
+      // if (email[1] == true) {
+      //   if (email[3] == 1) {
+      //     SharedPreferenceUtil.putBool(isLoginKey, false);
+      //   } else {
+      //     SharedPreferenceUtil.putBool(isLoginKey, false);
+      //   }
+      // } else {
+      //   SharedPreferenceUtil.putBool(isLoginKey, false);
+      // }
+      // if (email[1] == true) {
+      //   if (email[3] == 1) {
+      //     Get.offAllNamed(RoutesConstants.loginView);
+      //   } else {
+      //     Get.offAllNamed(RoutesConstants.loginView);
+      //     Utils.showErrorSnackBar("Seller Account Created");
+      //   }
+      // } else {
+      //   Get.offAllNamed(RoutesConstants.resetPasswordView);
+      // }
     }).catchError((error) {
       isLoading.value = false;
       if (error is DioError) {
@@ -93,22 +92,5 @@ class OtpVerificationController extends GetxController {
         ),
       );
     }
-  }
-  void forgotPassword({required ForgotRequestModel forgotRequestModel}) {
-    isLoading.value = true;
-    DioHelper.postData(
-      url: RestConstants.forGot,
-      data: forgotRequestModel.toJson(),
-    ).then((value) async {
-      isLoading.value = false;
-      Utils.showSnackBar("OTP send sucessfully");
-    }).catchError((error) {
-      isLoading.value = false;
-      if (error is DioError) {
-        Utils.showErrorSnackBar(
-          error.response?.data['message'],
-        );
-      }
-    });
   }
 }

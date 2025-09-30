@@ -4,9 +4,8 @@ import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Auth/forgotPassword/controller/forGot_request.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/otpVerification/controller/otpVerification_controller.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Auth/otpVerification/controller/otpVerification_request.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Home/view/test_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +28,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
           // toolbarHeight:20.h,
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.light,
-          color: Colors.transparent,
+          color: Colors.transparent, showBackButton: true,
         ),
         body: InkWell(
           onTap: () {
@@ -92,8 +91,7 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                       SizedBox(height: 50.h),
                       CommonButton(
                         onTap: () {
-                          controller.onTapLoginButton(OtpRequestModel(
-                              otp: controller.otpController.text));
+                          Navigator.push(context,MaterialPageRoute(builder: (BuildContext context) => TestHomeApp()));
                         },
                         buttonMargin: EdgeInsets.symmetric(horizontal: 20.w),
                         text: confirm,
