@@ -35,7 +35,6 @@ class ReferralCoinsScreen extends GetView<ReferralCoinsController> {
   }
 
   Widget _coinsCard() {
-    return Obx(() {
       return Container(
         width: double.infinity,
         padding: EdgeInsets.all(16.w),
@@ -54,7 +53,6 @@ class ReferralCoinsScreen extends GetView<ReferralCoinsController> {
           ],
         ),
       );
-    });
   }
 
   Widget _inviteCard() {

@@ -18,6 +18,9 @@ class PNGImages {
   static String icSMS = "assets/png_image/ic_sms.png";
   static String icCopy = "assets/png_image/ic_copy.png";
   static String icShare = "assets/png_image/ic_share.png";
+  static String icEditImage = "assets/png_image/ic_edit_image.png";
+  static String icCustomerAgree = "assets/png_image/ic_info_customer_agree.png";
+  static String icSupport = "assets/png_image/ic_support.png";
   static String icDWHome = "assets/png_image/ic_dw_home.png";
   static String icDWWallet = "assets/png_image/ic_dw_wallet.png";
   static String icDWProfile = "assets/png_image/ic_dw_profile.png";
@@ -60,4 +63,12 @@ class SVGImages {
   static const String filter = "assets/svg_image/filter.svg";
   static const String plus = 'assets/svg_image/plus.svg';
   static const String minus = 'assets/svg_image/minus.svg';
+
+
+  //Partner
+  static const String bHome = 'assets/svg_image/b_home.svg';
+  static const String bOngoing = 'assets/svg_image/b_ongoing.svg';
+  static const String bOrders = 'assets/svg_image/b_orders.svg';
+  static const String bPending = 'assets/svg_image/b_pending.svg';
+
 }

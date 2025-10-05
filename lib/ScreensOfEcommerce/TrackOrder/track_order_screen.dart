@@ -32,18 +32,17 @@ class TrackOrderScreen extends GetView<TrackOrderController> {
               SizedBox(height: 12.h),
               _OrderItemsCard(),
               SizedBox(height: 16.h),
-
               // Bottom actions
               CommonButton(
                 width: double.infinity,
                 height: 48.h,
-                text: 'Go to Payment',
+                text: 'Confirm Order Received',
                 buttonMargin: EdgeInsets.zero,
                 backgroundColor: colorPrimary,
                 textColor: whiteColor,
                 borderRadius: BorderRadius.circular(12.r),
                 onTap: () {
-                  Get.toNamed(RoutesConstants.paymentMethodView);
+                  Get.toNamed(RoutesConstants.confirmPaymentView);
                 },
               ),
               SizedBox(height: 12.h),
@@ -72,7 +71,7 @@ class TrackOrderScreen extends GetView<TrackOrderController> {
                       borderRadius: BorderRadius.circular(12.r),
                       border: Border.all(color: colorDFDFDF),
                     ),
-                    child: const Icon(Icons.settings, color: color969696),
+                    child: Image.asset(PNGImages.icSupport),
                   ),
                 ],
               ),

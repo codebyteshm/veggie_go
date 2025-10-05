@@ -41,8 +41,13 @@ class RoutesConstants {
   static const referralCoinsView = "/ReferralCoinsView";
   static const inviteFriendView = "/InviteFriendView";
   static const transactionsView = "/TransactionsView";
+  static const confirmPaymentView = "/ConfirmPaymentView";
+  static const driverView = "/DriverView";
 
 
   // Profile & Account
   static const profile = "/Profile";
+
+  //Partner
+  static const partnerBottomTabBarScreen = "/PartnerBottomTabBarScreen";
 }

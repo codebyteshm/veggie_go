@@ -37,7 +37,7 @@ class BottomTabBarScreen extends GetView<BottomTabBarController> {
                     children: [
                       _item(0, PNGImages.icBottomHome, 'Home'),
                       _item(1, PNGImages.icBottomProduct, 'Product'),
-                      SizedBox(width: 60.w),
+                      SizedBox(width: 40.w),
                       _item(2, PNGImages.icBottomWallet, 'Wallet'),
                       _item(3, PNGImages.icBottomOrders, 'Order'),
                     ],

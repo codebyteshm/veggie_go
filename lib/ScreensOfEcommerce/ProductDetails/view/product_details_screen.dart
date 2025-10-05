@@ -207,9 +207,14 @@ class ProductDetailsScreen extends GetView<ProductDetailsController> {
                     decoration: BoxDecoration(color: whiteColor, borderRadius: BorderRadius.circular(12.r)),
                     child: Row(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          child: SvgPicture.asset(SVGImages.myCartBb, height: 22.h, color: color00394D),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(RoutesConstants.cartView);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
+                            child: Image.asset(PNGImages.icBasket, height: 22.h, color: color00394D),
+                          ),
                         ),
                         _squareBtn(iconPath: Icons.remove, onTap: controller.decrement),
                         Expanded(

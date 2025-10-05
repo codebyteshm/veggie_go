@@ -1,5 +1,6 @@
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_appbar.dart';
+import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:flutter/material.dart';
@@ -43,12 +44,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           children: [
             _buildProfileHeader(),
-            SizedBox(height: 32.h),
+            SizedBox(height: 20.h),
             _buildPersonalDetailsSection(),
             SizedBox(height: 40.h),
             _buildSaveButton(),
-            SizedBox(height: 20.h),
-            _buildLogoutButton(),
             SizedBox(height: 40.h),
           ],
         ),
@@ -90,18 +89,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               bottom: 0,
               right: 0,
               child: Container(
-                width: 24.w,
-                height: 24.w,
+                width: 32.w,
+                height: 32.w,
                 decoration: BoxDecoration(
                   color: Color(0xFF4CAF50),
                   shape: BoxShape.circle,
                   border: Border.all(color: whiteColor, width: 2),
                 ),
-                child: Icon(
-                  Icons.check,
-                  color: whiteColor,
-                  size: 12.w,
-                ),
+                child: Image.asset(PNGImages.icEditImage)
               ),
             ),
           ],
@@ -127,37 +122,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildPersonalDetailsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Personal Details',
-          style: openSansSemiBold(
-            textColor: color1C1C1C,
-            fontSize: 18.sp,
+    return Container(
+      padding: EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: colorE5E7EB,
+        borderRadius: BorderRadius.circular(12)
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Personal Details',
+            style: openSansSemiBold(
+              textColor: color1C1C1C,
+              fontSize: 18.sp,
+            ),
           ),
-        ),
-        SizedBox(height: 20.h),
-        _buildInputField(
-          label: 'First Name',
-          controller: _firstNameController,
-        ),
-        SizedBox(height: 16.h),
-        _buildInputField(
-          label: 'Last Name',
-          controller: _lastNameController,
-        ),
-        SizedBox(height: 16.h),
-        _buildInputField(
-          label: 'Email',
-          controller: _emailController,
-        ),
-        SizedBox(height: 16.h),
-        _buildInputField(
-          label: 'Phone Number',
-          controller: _phoneController,
-        ),
-      ],
+          SizedBox(height: 20.h),
+          _buildInputField(
+            label: 'First Name',
+            controller: _firstNameController,
+          ),
+          SizedBox(height: 10.h),
+          _buildInputField(
+            label: 'Last Name',
+            controller: _lastNameController,
+          ),
+          SizedBox(height: 10.h),
+          _buildInputField(
+            label: 'Email',
+            controller: _emailController,
+          ),
+          SizedBox(height: 10.h),
+          _buildInputField(
+            label: 'Phone Number',
+            controller: _phoneController,
+          ),
+        ],
+      ),
     );
   }
 
@@ -170,12 +172,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Text(
           label,
-          style: openSansMedium(
+          style: openSansRegular(
             textColor: color6A6A6A,
             fontSize: 14.sp,
           ),
         ),
-        SizedBox(height: 8.h),
+        SizedBox(height: 4.h),
         Container(
           decoration: BoxDecoration(
             color: colorF5F5F5,
@@ -215,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _showSaveSuccessDialog();
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF6B9B37),
+          backgroundColor: colorPrimary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r),
           ),
@@ -228,32 +230,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             fontSize: 16.sp,
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildLogoutButton() {
-    return InkWell(
-      onTap: () {
-        _showLogoutDialog();
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.logout,
-            color: color6A6A6A,
-            size: 20.w,
-          ),
-          SizedBox(width: 8.w),
-          Text(
-            'Logout',
-            style: openSansMedium(
-              textColor: color6A6A6A,
-              fontSize: 16.sp,
-            ),
-          ),
-        ],
       ),
     );
   }
