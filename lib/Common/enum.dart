@@ -1,1 +1,0 @@
-enum Menu { copyLink, delete }

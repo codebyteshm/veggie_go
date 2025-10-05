@@ -8,73 +8,47 @@ import 'package:get/get.dart';
 
 import '../../../routes/routes_strings.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final TextEditingController _firstNameController = TextEditingController(text: 'kalpan');
+  final TextEditingController _lastNameController = TextEditingController(text: 'kaneriya');
+  final TextEditingController _emailController = TextEditingController(text: 'Kalpankaneriya123@gmail.com');
+  final TextEditingController _phoneController = TextEditingController(text: '+91 1234567890');
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: CommonAppBarWidget(
-        title: myProfile,
+        title: 'Profile',
         showBackButton: true,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Column(
           children: [
             _buildProfileHeader(),
-            SizedBox(height: 24.h),
-            _buildProfileOption(
-              icon: Icons.person_outline,
-              title: personalInfo,
-              onTap: () {
-                // Navigate to personal info screen
-              },
-            ),
-            _buildDivider(),
-            _buildProfileOption(
-              icon: Icons.shopping_bag_outlined,
-              title: myOrders,
-              onTap: () {
-                Get.toNamed(RoutesConstants.myOrders);
-              },
-            ),
-            _buildDivider(),
-            _buildProfileOption(
-              icon: Icons.account_balance_wallet_outlined,
-              title: wallet,
-              onTap: () {
-                Get.toNamed(RoutesConstants.walletDashboard);
-              },
-            ),
-            _buildDivider(),
-            _buildProfileOption(
-              icon: Icons.settings_outlined,
-              title: settings,
-              onTap: () {
-                // Navigate to settings screen
-              },
-            ),
-            _buildDivider(),
-            _buildProfileOption(
-              icon: Icons.help_outline,
-              title: helpCenter,
-              onTap: () {
-                // Navigate to help center
-              },
-            ),
-            _buildDivider(),
-            _buildProfileOption(
-              icon: Icons.logout,
-              title: logOut,
-              textColor: colorF44336,
-              onTap: () {
-                // Handle logout
-              },
-            ),
-            SizedBox(height: 24.h),
-            _buildDeleteAccountButton(),
+            SizedBox(height: 32.h),
+            _buildPersonalDetailsSection(),
+            SizedBox(height: 40.h),
+            _buildSaveButton(),
+            SizedBox(height: 20.h),
+            _buildLogoutButton(),
             SizedBox(height: 40.h),
           ],
         ),
@@ -85,24 +59,56 @@ class ProfileScreen extends StatelessWidget {
   Widget _buildProfileHeader() {
     return Column(
       children: [
-        Container(
-          width: 100.w,
-          height: 100.w,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: colorPrimary, width: 2),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset(
-              'assets/images/profile_placeholder.png',
-              fit: BoxFit.cover,
+        Stack(
+          children: [
+            Container(
+              width: 100.w,
+              height: 100.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: colorE0E0E0, width: 2),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50.w),
+                child: Image.asset(
+                  'assets/images/profile_placeholder.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: colorF5F5F5,
+                      child: Icon(
+                        Icons.person,
+                        size: 50.w,
+                        color: color6A6A6A,
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Container(
+                width: 24.w,
+                height: 24.w,
+                decoration: BoxDecoration(
+                  color: Color(0xFF4CAF50),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: whiteColor, width: 2),
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: whiteColor,
+                  size: 12.w,
+                ),
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: 12.h),
+        SizedBox(height: 16.h),
         Text(
-          'John Doe',
+          'Kalapn Kaneriya',
           style: openSansSemiBold(
             textColor: color1C1C1C,
             fontSize: 20.sp,
@@ -110,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         SizedBox(height: 4.h),
         Text(
-          'johndoe@example.com',
+          'Kalpankaneriya123@gmail.com',
           style: openSansRegular(
             textColor: color6A6A6A,
             fontSize: 14.sp,
@@ -120,107 +126,131 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileOption({
-    required IconData icon,
-    required String title,
-    Color? textColor,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16.h),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: textColor ?? color1C1C1C,
-              size: 24.w,
-            ),
-            SizedBox(width: 16.w),
-            Text(
-              title,
-              style: openSansMedium(
-                textColor: textColor ?? color1C1C1C,
-                fontSize: 16.sp,
-              ),
-            ),
-            const Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: color6A6A6A,
-              size: 16.w,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDivider() {
-    return Divider(
-      height: 1,
-      thickness: 1,
-      color: colorE0E0E0,
-    );
-  }
-
-  Widget _buildDeleteAccountButton() {
-    return TextButton(
-      onPressed: () {
-        _showDeleteAccountDialog();
-      },
-      child: Text(
-        'Delete Account',
-        style: openSansMedium(
-          textColor: colorF44336,
-          fontSize: 14.sp,
-          // decoration: TextDecoration.underline,
-        ),
-      ),
-    );
-  }
-
-  void _showDeleteAccountDialog() {
-    Get.dialog(
-      AlertDialog(
-        title: Text(
-          deleteAccountTitle,
+  Widget _buildPersonalDetailsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Personal Details',
           style: openSansSemiBold(
             textColor: color1C1C1C,
             fontSize: 18.sp,
           ),
         ),
-        content: Text(
-          deleteAccountMessage,
-          style: openSansRegular(
+        SizedBox(height: 20.h),
+        _buildInputField(
+          label: 'First Name',
+          controller: _firstNameController,
+        ),
+        SizedBox(height: 16.h),
+        _buildInputField(
+          label: 'Last Name',
+          controller: _lastNameController,
+        ),
+        SizedBox(height: 16.h),
+        _buildInputField(
+          label: 'Email',
+          controller: _emailController,
+        ),
+        SizedBox(height: 16.h),
+        _buildInputField(
+          label: 'Phone Number',
+          controller: _phoneController,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInputField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: openSansMedium(
             textColor: color6A6A6A,
             fontSize: 14.sp,
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text(
-              cancel,
-              style: openSansMedium(
-                textColor: color6A6A6A,
-                fontSize: 14.sp,
+        SizedBox(height: 8.h),
+        Container(
+          decoration: BoxDecoration(
+            color: colorF5F5F5,
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: TextFormField(
+            controller: controller,
+            style: openSansRegular(
+              textColor: color1C1C1C,
+              fontSize: 16.sp,
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 16.h,
+              ),
+              suffixIcon: Icon(
+                Icons.edit,
+                color: Color(0xFF6B9B37),
+                size: 20.w,
               ),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              // Handle account deletion
-              Get.back();
-              _showAccountDeletedDialog();
-            },
-            child: Text(
-              delete,
-              style: openSansMedium(
-                textColor: colorF44336,
-                fontSize: 14.sp,
-              ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSaveButton() {
+    return Container(
+      width: double.infinity,
+      height: 50.h,
+      child: ElevatedButton(
+        onPressed: () {
+          // Handle save changes
+          _showSaveSuccessDialog();
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFF6B9B37),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          elevation: 0,
+        ),
+        child: Text(
+          'Save Changes',
+          style: openSansSemiBold(
+            textColor: whiteColor,
+            fontSize: 16.sp,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogoutButton() {
+    return InkWell(
+      onTap: () {
+        _showLogoutDialog();
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.logout,
+            color: color6A6A6A,
+            size: 20.w,
+          ),
+          SizedBox(width: 8.w),
+          Text(
+            'Logout',
+            style: openSansMedium(
+              textColor: color6A6A6A,
+              fontSize: 16.sp,
             ),
           ),
         ],
@@ -228,19 +258,19 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  void _showAccountDeletedDialog() {
+  void _showSaveSuccessDialog() {
     Get.dialog(
       AlertDialog(
         title: Column(
           children: [
             Icon(
               Icons.check_circle_outline,
-              color: color4CAF50,
+              color: Color(0xFF4CAF50),
               size: 60.w,
             ),
             SizedBox(height: 16.h),
             Text(
-              accountDeleted,
+              'Success',
               style: openSansSemiBold(
                 textColor: color1C1C1C,
                 fontSize: 18.sp,
@@ -250,7 +280,7 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
         content: Text(
-          accountDeletedMessage,
+          'Your profile has been updated successfully.',
           style: openSansRegular(
             textColor: color6A6A6A,
             fontSize: 14.sp,
@@ -260,14 +290,11 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           Center(
             child: TextButton(
-              onPressed: () {
-                // Navigate to home or login screen
-                Get.offAllNamed(RoutesConstants.loginView);
-              },
+              onPressed: () => Get.back(),
               child: Text(
                 'OK',
                 style: openSansSemiBold(
-                  textColor: colorPrimary,
+                  textColor: Color(0xFF6B9B37),
                   fontSize: 16.sp,
                 ),
               ),
@@ -275,7 +302,53 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      barrierDismissible: false,
+    );
+  }
+
+  void _showLogoutDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: Text(
+          'Logout',
+          style: openSansSemiBold(
+            textColor: color1C1C1C,
+            fontSize: 18.sp,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to logout?',
+          style: openSansRegular(
+            textColor: color6A6A6A,
+            fontSize: 14.sp,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text(
+              'Cancel',
+              style: openSansMedium(
+                textColor: color6A6A6A,
+                fontSize: 14.sp,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back();
+              // Navigate to login screen
+              Get.offAllNamed(RoutesConstants.loginView);
+            },
+            child: Text(
+              'Logout',
+              style: openSansMedium(
+                textColor: colorF44336,
+                fontSize: 14.sp,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
 
   @override
   void initState() {
-      Timer(const Duration(seconds: 5), () {
+      Timer(const Duration(seconds: 2), () {
               Get.offAllNamed(RoutesConstants.loginView);
       });
     // initPackageInfo();

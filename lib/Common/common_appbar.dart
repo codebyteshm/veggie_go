@@ -1,38 +1,34 @@
-
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/Common/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import 'color.dart';
-import 'image.dart';
 
 class CommonAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
-  const CommonAppBarWidget(
-      {Key? key,
-        this.title,
-        this.onTap,
-        this.actions,
-        this.backColor,
-        this.isShowBackArrow = true,
-        this.isShowCloseIcon = false,
-        this.icon,
-        this.titleWidget,
-        this.centerTitle,
-        this.backWidget,
-        this.color,
-        this.textStyle,
-        this.isShowTitle = true,
-        this.statusBarBrightness,
-        this.paddingBack,
-        this.paddingText,
-        this.toolbarHeight,
-        this.elevation,
-        this.statusBarIconBrightness, required bool showBackButton,  TabBar? bottom})
+  const CommonAppBarWidget({Key? key,
+    this.title,
+    this.onTap,
+    this.actions,
+    this.backColor,
+    this.isShowBackArrow = true,
+    this.isShowCloseIcon = false,
+    this.icon,
+    this.titleWidget,
+    this.centerTitle,
+    this.backWidget,
+    this.color,
+    this.textStyle,
+    this.isShowTitle = true,
+    this.statusBarBrightness,
+    this.paddingBack,
+    this.paddingText,
+    this.toolbarHeight,
+    this.elevation,
+    this.statusBarIconBrightness, required bool showBackButton, TabBar? bottom})
       : super(key: key);
 
   final String? title;
@@ -58,17 +54,12 @@ class CommonAppBarWidget extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.only(
-      //     bottomLeft: Radius.circular(20.r),
-      //     bottomRight: Radius.circular(20.r),
-      //   ),
-      // ),
+      surfaceTintColor: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: statusBarIconBrightness ?? Brightness.light,
+        statusBarIconBrightness: statusBarIconBrightness ?? Brightness.dark,
         systemNavigationBarColor: whiteColor,
-        statusBarBrightness: statusBarBrightness ?? Brightness.dark,
+        statusBarBrightness: statusBarBrightness ?? Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       backgroundColor: color ?? whiteColor,
@@ -87,11 +78,8 @@ class CommonAppBarWidget extends StatelessWidget
             child: Padding(
               padding: paddingBack ??
                   EdgeInsets.only(
-                      left: 8.w, right: 8.w, top: 10.h, bottom: 5.h),
-              child: SvgPicture.asset(
-                SVGImages.appbarBack,
-                color: backColor,
-              ),
+                      left: 8.w, right: 8.w, top: 5.h, bottom: 5.h),
+              child: const BackButton(color: Colors.black),
             ),
           )
           : const SizedBox.shrink(),

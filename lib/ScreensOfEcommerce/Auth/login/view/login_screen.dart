@@ -8,7 +8,6 @@ import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_controller.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_request.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Home/controller/home_controller.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
 import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
@@ -29,187 +28,153 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       backgroundColor: whiteColor,
       extendBodyBehindAppBar: true,
-      appBar: const CommonAppBarWidget(toolbarHeight: 0, statusBarIconBrightness: Brightness.dark, statusBarBrightness: Brightness.light, color: Colors.transparent, showBackButton: false,),
+      appBar: const CommonAppBarWidget(
+        toolbarHeight: 0,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+        color: Colors.transparent,
+        showBackButton: false,),
       body: InkWell(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Obx(
-          () => Stack(
-            children: [
-              SizedBox(
-                width: Get.width,
-                height: Get.height,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 0,
-                      child: Image.asset(PNGImages.buyerLoginBackground, width: Get.width, height: Get.height, fit: BoxFit.cover),
-                    ),
-                    Column(
+              () =>
+              Stack(
+                children: [
+                  SizedBox(
+                    width: Get.width,
+                    height: Get.height,
+                    child: Stack(
                       children: [
-                        SizedBox(height: 55.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 65.w),
-                          child: Image.asset(PNGImages.appLogo),
+                        Positioned(
+                          top: 0,
+                          child: Image.asset(PNGImages.buyerLoginBackground, width: Get.width, height: Get.height, fit: BoxFit.cover),
                         ),
-                        SizedBox(height: 10.h),
+                        Column(
+                          children: [
+                            SizedBox(height: 55.h),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 65.w),
+                              child: Image.asset(PNGImages.appLogo),
+                            ),
+                            SizedBox(height: 10.h),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 45.w),
+                              child: Text(
+                                appSubText,
+                                style: openSansSemiBold(textColor: color00394D, fontSize: 14.sp),
+                              ),
+                            ),
+                          ],
+                        ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 45.w),
-                          child: Text(
-                            appSubText,
-                            style: openSansSemiBold(textColor: color00394D, fontSize: 14.sp),
+                          padding: EdgeInsets.only(top: 160.h),
+                          child: Container(
+                            width: Get.width,
+                            height: Get.height,
+                            decoration: BoxDecoration(
+                              color: whiteColor,
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r), topRight: Radius.circular(15.r)),
+                              boxShadow: [BoxShadow(blurRadius: 13, color: blackColor.withOpacity(0.05), offset: const Offset(0, -3))],
+                            ),
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 30.h),
+                                    Text(
+                                      welcomeBack,
+                                      style: openSansBold(fontSize: 24.sp, textColor: color00394D),
+                                    ),
+                                    SizedBox(height: 2.h),
+                                    Text(
+                                      welcomeBackSubText,
+                                      style: openSansMedium(fontSize: 14.sp, textColor: colorPrimary.withOpacity(0.70)),
+                                    ),
+                                    SizedBox(height: 20.h),
+                                    _getPhoneNumber(),
+                                    SizedBox(height: 24.h),
+                                    CommonButton(
+                                      onTap: () async {
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        if (SharedPreferenceUtil.getString(fcmTokenKey) == "") {
+                                          String? fcmToken = '';
+                                          // String? fcmToken = await FirebaseMessaging.instance.getToken();
+                                          print("FCM Token: $fcmToken");
+                                          await SharedPreferenceUtil.putString(fcmTokenKey, fcmToken);
+                                        }
+                                        controller.onTapLoginButton(
+                                          LoginRequestModel(
+                                            countryCode: "+91",
+                                            phoneNumber: controller.phoneNumberController.text,
+                                            password: controller.passWordController.text,
+                                            deviceId: await Utils.getDeviceId() ?? "",
+                                            deviceType: Utils.getDeviceTypeID(),
+                                            pushToken: SharedPreferenceUtil.getString(fcmTokenKey),
+                                          ),
+                                        );
+                                        // isUserLogin = true;
+                                      },
+                                      buttonMargin: EdgeInsets.zero,
+                                      text: logIn,
+                                    ),
+                                    SizedBox(height: 42.h),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          doNotAcc,
+                                          style: openSansRegular(fontSize: 14.sp, textColor: colorPrimary.withOpacity(0.70)),
+                                        ),
+                                        SizedBox(width: 8.w),
+                                        InkWell(
+                                          onTap: () {
+                                            Get.toNamed(RoutesConstants.createAccountStep1View);
+                                          },
+                                          child: Text(createAccount, style: openSansBold(fontSize: 14.sp)),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 186.h),
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.center,
+                                    //   children: [
+                                    //     Text(
+                                    //       login,
+                                    //       style: openSansMedium(fontSize: 16.sp, textColor: color6A6A6A),
+                                    //     ),
+                                    //     SizedBox(width: 8.w),
+                                    //     InkWell(
+                                    //       onTap: () {
+                                    //         // Get.toNamed(RoutesConstants.mainScreen, arguments: [false, 0, false]);
+                                    //       },
+                                    //       child: Text(
+                                    //         asGuest,
+                                    //         style: openSansBold(fontSize: 16.sp, textColor: colorPrimary),
+                                    //       ),
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    // SizedBox(height: 20.h),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 160.h),
-                      child: Container(
-                        width: Get.width,
-                        height: Get.height,
-                        decoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r), topRight: Radius.circular(15.r)),
-                          boxShadow: [BoxShadow(blurRadius: 13, color: blackColor.withOpacity(0.05), offset: const Offset(0, -3))],
-                        ),
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 30.h),
-                                Text(
-                                  welcomeBack,
-                                  style: openSansBold(fontSize: 24.sp, textColor: color00394D),
-                                ),
-                                SizedBox(height: 2.h),
-                                Text(
-                                  welcomeBackSubText,
-                                  style: openSansMedium(fontSize: 14.sp, textColor: colorPrimary.withOpacity(0.70)),
-                                ),
-                                SizedBox(height: 20.h),
-                                _getPhoneNumber(),
-                                SizedBox(height: 24.h),
-                                CommonButton(
-                                  onTap: () async {
-                                    FocusScope.of(context).requestFocus(FocusNode());
-                                    if (SharedPreferenceUtil.getString(fcmTokenKey) == "") {
-                                      String? fcmToken = '';
-                                      // String? fcmToken = await FirebaseMessaging.instance.getToken();
-                                      print("FCM Token: $fcmToken");
-                                      await SharedPreferenceUtil.putString(fcmTokenKey, fcmToken);
-                                    }
-                                    controller.onTapLoginButton(
-                                      LoginRequestModel(
-                                        // countryCode:"+${controller.selectedDialogCountry.value.phoneCode}",
-                                        phoneNumber: controller.phoneNumberController.text,
-                                        password: controller.passWordController.text,
-                                        deviceId: await Utils.getDeviceId() ?? "",
-                                        deviceType: Utils.getDeviceTypeID(),
-                                        pushToken: SharedPreferenceUtil.getString(fcmTokenKey),
-                                      ),
-                                    );
-                                    // isUserLogin = true;
-                                  },
-                                  buttonMargin: EdgeInsets.zero,
-                                  text: logIn,
-                                ),
-                                SizedBox(height: 42.h),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      doNotAcc,
-                                      style: openSansRegular(fontSize: 14.sp, textColor: colorPrimary.withOpacity(0.70)),
-                                    ),
-                                    SizedBox(width: 8.w),
-                                    InkWell(
-                                      onTap: () {
-                                        Get.toNamed(RoutesConstants.createAccountStep1View);
-                                      },
-                                      child: Text(createAccount, style: openSansBold(fontSize: 14.sp)),
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(RoutesConstants.walletDashboard);
-                                  },
-                                  child: Text('Wallet', style: openSansBold(fontSize: 14.sp)),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(RoutesConstants.myOrders);
-                                  },
-                                  child: Text('My order', style: openSansBold(fontSize: 14.sp)),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(RoutesConstants.profile);
-                                  },
-                                  child: Text('Profile', style: openSansBold(fontSize: 14.sp)),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(RoutesConstants.orderSuccess);
-                                  },
-                                  child: Text('Order success', style: openSansBold(fontSize: 14.sp)),
-                                ),
-                                SizedBox(height: 186.h),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      login,
-                                      style: openSansMedium(fontSize: 16.sp, textColor: color6A6A6A),
-                                    ),
-                                    SizedBox(width: 8.w),
-                                    InkWell(
-                                      onTap: () {
-                                        Get.lazyPut<HomeController>(
-                                            () => HomeController());
-                                        // Get.lazyPut<CategoriesController>(
-                                        //     () => CategoriesController());
-                                        // Get.lazyPut<MyCartController>(
-                                        //     () => MyCartController());
-                                        // Get.lazyPut<MyOrderController>(
-                                        //     () => MyOrderController());
-                                        Future.delayed(Duration(microseconds: 800)).then(
-                                          (value) =>
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(builder: (context) =>  MainScreen()),
-                                              // )
-                                              Get.toNamed(RoutesConstants.mainScreen, arguments: [false, 0, false]),
-                                        );
-                                        // isUserLogin = false;
-                                      },
-                                      child: Text(
-                                        asGuest,
-                                        style: openSansBold(fontSize: 16.sp, textColor: colorPrimary),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 20.h),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  controller.isLoading.value
+                      ? Center(
+                    child: CircularProgressIndicator(strokeWidth: 4.w, color: colorDC4326),
+                  )
+                      : const Offstage(),
+                ],
               ),
-              controller.isLoading.value
-                  ? Center(
-                      child: CircularProgressIndicator(strokeWidth: 4.w, color: colorDC4326),
-                    )
-                  : const Offstage(),
-            ],
-          ),
         ),
       ),
     );

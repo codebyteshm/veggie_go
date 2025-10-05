@@ -2,7 +2,6 @@ class RoutesConstants {
   static const splashScreen = "/splash";
   static const loginView = "/LoginView";
   static const createAccountStep1View = "/CreateAccountStep1View";
-  static const createAccountStep2View = "/CreateAccountStep2View";
   static const getStartView = "/GetStartView";
   static const otpVerificationView = "/OtpVerificationView";
   static const mainScreen = "/MainScreen";
@@ -32,28 +31,18 @@ class RoutesConstants {
   static const chatDetailsView = "/ChatDetailsView";
   static const chatSupportView = "/ChatSupportView";
   static const addressView = "/AddressView";
-  static const changePasswordView = "/ChangePasswordView";
-  static const privacyPolicyView = "/PrivacyPolicyView";
-  static const faqView = "/FaqView";
-  static const helpAndSupportView = "/HelpAndSupportView";
-  static const resetPasswordView = "/ResetPasswordView";
-  static const similarProductListView = "/SimilarProductListView";
+  static const cartView = "/CartView";
+  static const paymentMethodView = "/PaymentMethodView";
+  static const trackOrderView = "/TrackOrderView";
+  static const orderSuccessView = "/OrderSuccessView";
+  static const cancelConfirmView = "/CancelConfirmView";
+  static const cancelReasonView = "/CancelReasonView";
+  static const addMoneyView = "/AddMoneyView";
+  static const referralCoinsView = "/ReferralCoinsView";
+  static const inviteFriendView = "/InviteFriendView";
+  static const transactionsView = "/TransactionsView";
 
-//-------------------------------------------------------------------------------------------
-
-  //Commodity Trade
-  static const commodityTradeMainScreen = "/CommodityTradeMainScreen";
-  static const commodityAddCartView = "/AddCartView";
-  static const viewCartView = "/ViewCartView";
-  static const cTSuccessView = "/CTSuccessView";
-  static const cTChatDetailsView = "/CTChatDetailsView";
-
-  static const orderSuccess = "/OrderSuccess";
 
   // Profile & Account
   static const profile = "/Profile";
-  static const myOrders = "/MyOrders";
-  static const orderDetails = "/OrderDetails";
-  static const walletDashboard = "/WalletDashboard";
-  static const transactionHistory = "/TransactionHistory";
 }

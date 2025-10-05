@@ -2,10 +2,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
-
 import '../Common/custom_dialog.dart';
-import 'custom_dialog.dart';
 
 class Utils {
   static const String iosDeviceTypeId = "ios";

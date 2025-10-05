@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
@@ -15,11 +14,9 @@ import 'login_response.dart';
 class LoginController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passWordController = TextEditingController();
-  List<FocusNode> focusNodes = [
-    FocusNode(),
-    FocusNode(),
-  ];
+  List<FocusNode> focusNodes = [FocusNode(), FocusNode()];
   RxBool isLoading = false.obs;
+
   // Rx<Country> selectedDialogCountry = CountryPickerUtils.getCountryByPhoneCode('974').obs;
 
   LoginResponse? loginModel;
@@ -32,28 +29,25 @@ class LoginController extends GetxController {
 
   void userLogin({required LoginRequestModel loginRequestModel}) {
     isLoading.value = true;
-    DioHelper.postData(
-      url: RestConstants.loginUrl,
-      data: loginRequestModel.toJson(),
-    ).then((value) async {
-      isLoading.value = false;
-      loginModel = LoginResponse.fromJson(value.data);
-      if (loginModel?.payload?.role == "Seller") {
-        Utils.showErrorSnackBar("Seller Account");
-      } else {
-        // await saveLoginDataToSP(loginModel!);
-        SharedPreferenceUtil.putBool(isLoginKey, true);
-        SharedPreferenceUtil.putInt(userIdKey, loginModel?.payload?.id ?? 0);
-        Get.offAllNamed(RoutesConstants.getStartView);
-      }
-    }).catchError((error) {
-      isLoading.value = false;
-      if (error is DioError) {
-        Utils.showErrorSnackBar(
-          error.response?.data['message'],
-        );
-      }
-    });
+    DioHelper.postData(url: RestConstants.loginUrl, data: loginRequestModel.toJson())
+        .then((value) async {
+          isLoading.value = false;
+          loginModel = LoginResponse.fromJson(value.data);
+          if (loginModel?.payload?.role == "Seller") {
+            Utils.showErrorSnackBar("Seller Account");
+          } else {
+            // await saveLoginDataToSP(loginModel!);
+            SharedPreferenceUtil.putBool(isLoginKey, true);
+            SharedPreferenceUtil.putInt(userIdKey, loginModel?.payload?.id ?? 0);
+            Get.offAllNamed(RoutesConstants.getStartView);
+          }
+        })
+        .catchError((error) {
+          isLoading.value = false;
+          if (error is DioError) {
+            Utils.showErrorSnackBar(error.response?.data['message']);
+          }
+        });
   }
 
   bool isValidateLogin({required String phoneNumber, required String password}) {
@@ -69,11 +63,9 @@ class LoginController extends GetxController {
   }
 
   void onTapLoginButton(LoginRequestModel loginRequestModel) {
-    if (isValidateLogin(
-        password: loginRequestModel.password.toString(),
-        phoneNumber: loginRequestModel.phoneNumber.toString())) {
+    // if (isValidateLogin(password: loginRequestModel.password.toString(), phoneNumber: loginRequestModel.phoneNumber.toString())) {
       // Navigate directly to home screen
-      Get.offAllNamed(RoutesConstants.homeView);
+      Get.toNamed(RoutesConstants.otpVerificationView, arguments: ["${loginRequestModel.countryCode} ${loginRequestModel.phoneNumber}"]);
       // Previous OTP verification navigation (commented out)
       // Get.toNamed(RoutesConstants.otpVerificationView,arguments: [phoneNumberController]);
       // userLogin(
@@ -86,6 +78,6 @@ class LoginController extends GetxController {
       //     pushToken: loginRequestModel.pushToken.toString(),
       //   ),
       // );
-    }
+    // }
   }
 }

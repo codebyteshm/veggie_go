@@ -4,9 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
-import 'package:e_commerce46/routes/routes_strings.dart';
-import 'package:e_commerce46/utils/key.dart';
-import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -24,7 +21,7 @@ class OtpVerificationController extends GetxController {
 
   @override
   void onInit() {
-    phoneNumber = Get.arguments;
+    phoneNumber = Get.arguments[0];
     // otpController.text = email[2].toString();
     super.onInit();
   }
