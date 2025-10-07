@@ -20,6 +20,7 @@ class LoginController extends GetxController {
   // Rx<Country> selectedDialogCountry = CountryPickerUtils.getCountryByPhoneCode('974').obs;
 
   LoginResponse? loginModel;
+  SendOtpModelResponse? sendOtpModelResponse;
   final isHidden = true.obs;
 
   void togglePasswordView() {
@@ -27,9 +28,9 @@ class LoginController extends GetxController {
     print("IsHidden = ${isHidden.value}");
   }
 
-  void userLogin({required LoginRequestModel loginRequestModel}) {
+  void userLogin() {
     isLoading.value = true;
-    DioHelper.postData(url: RestConstants.loginUrl, data: loginRequestModel.toJson())
+    DioHelper.postData(url: RestConstants.loginUrl, data: {"phone" : phoneNumberController.text})
         .then((value) async {
           isLoading.value = false;
           loginModel = LoginResponse.fromJson(value.data);
@@ -41,6 +42,24 @@ class LoginController extends GetxController {
             SharedPreferenceUtil.putInt(userIdKey, loginModel?.payload?.id ?? 0);
             Get.offAllNamed(RoutesConstants.getStartView);
           }
+        })
+        .catchError((error) {
+          isLoading.value = false;
+          if (error is DioError) {
+            Utils.showErrorSnackBar(error.response?.data['message']);
+          }
+        });
+  }
+
+
+
+  void sendOtp() {
+    isLoading.value = true;
+    DioHelper.postData(url: RestConstants.loginUrl, data: {"phone" : phoneNumberController.text})
+        .then((value) async {
+          isLoading.value = false;
+          sendOtpModelResponse = SendOtpModelResponse.fromJson(value.data);
+          Get.toNamed(RoutesConstants.otpVerificationView, arguments: ["+91 ${phoneNumberController.text}"]);
         })
         .catchError((error) {
           isLoading.value = false;

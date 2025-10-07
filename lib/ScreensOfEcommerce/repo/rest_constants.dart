@@ -1,5 +1,5 @@
 class RestConstants {
-  static const String baseUrl = 'http://3.28.4.129:4000/';
+  static const String baseUrl = 'https://api.veggigo.com/api';
 
   static const String loginUrl = '/users/authenticate';
   static const String versionCheckerUrl = 'seller/version_checker';

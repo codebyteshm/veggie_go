@@ -43,6 +43,7 @@ class RoutesConstants {
   static const transactionsView = "/TransactionsView";
   static const confirmPaymentView = "/ConfirmPaymentView";
   static const driverView = "/DriverView";
+  static const partnerOrderDetailView = "/PartnerOrderDetailView";
 
 
   // Profile & Account

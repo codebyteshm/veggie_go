@@ -2,6 +2,7 @@ import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Driver/view/driver_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/view/partner_order_detail_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/PartnerBottomTabBar/controller/partner_bottom_tab_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +14,7 @@ class PartnerBottomTabBarScreen extends GetView<PartnerBottomTabBarController> {
 
   @override
   Widget build(BuildContext context) {
-    final tabs = const [DriverScreen(), DriverScreen(), DriverScreen(), DriverScreen()];
+    final tabs = const [DriverScreen(), DriverScreen(), PartnerOrderDetailScreen(), DriverScreen()];
     return Obx(
       () => Scaffold(
         body: tabs[controller.currentIndex.value],
