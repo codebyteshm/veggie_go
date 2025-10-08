@@ -1,9 +1,16 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:e_commerce46/Common/string_extention.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_request.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/view/bottom_tab_bar_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
+import 'package:e_commerce46/routes/routes_strings.dart';
+import 'package:e_commerce46/utils/key.dart';
+import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -27,45 +34,24 @@ class OtpVerificationController extends GetxController {
   }
 
   LoginResponse? loginResponse;
-  void otp({required OtpRequestModel otpRequestModel}) {
+
+  void verifyOtpApiCall({required LoginRequestModel loginRequestModel}) {
     isLoading.value = true;
     DioHelper.postData(
       url: RestConstants.verifyOtp,
-      data: otpRequestModel.toJson(),
+      data: loginRequestModel.toJson(),
     ).then((value) async {
       isLoading.value = false;
       loginResponse = LoginResponse.fromJson(value.data);
-      // await saveLoginDataToSP(loginModel!);
-      // SharedPreferenceUtil.putBool(isLoginKey, true);
-      // SharedPreferenceUtil.putInt(userIdKey, loginModel?.payload?.id ?? 0);
-      // email[1] == true
-      //     ? SharedPreferenceUtil.putBool(isLoginKey, true)
-      //     : SharedPreferenceUtil.putBool(isLoginKey, false);
-      // if (email[1] == true) {
-      //   if (email[3] == 1) {
-      //     SharedPreferenceUtil.putBool(isLoginKey, false);
-      //   } else {
-      //     SharedPreferenceUtil.putBool(isLoginKey, false);
-      //   }
-      // } else {
-      //   SharedPreferenceUtil.putBool(isLoginKey, false);
-      // }
-      // if (email[1] == true) {
-      //   if (email[3] == 1) {
-      //     Get.offAllNamed(RoutesConstants.loginView);
-      //   } else {
-      //     Get.offAllNamed(RoutesConstants.loginView);
-      //     Utils.showErrorSnackBar("Seller Account Created");
-      //   }
-      // } else {
-      //   Get.offAllNamed(RoutesConstants.resetPasswordView);
-      // }
+      await saveLoginDataToSP(loginResponse!);
+      SharedPreferenceUtil.putBool(isLoginKey, true);
+      if(loginResponse?.data?.user?.role == "USER"){
+        Get.toNamed(RoutesConstants.mainScreen);
+      }
     }).catchError((error) {
       isLoading.value = false;
       if (error is DioError) {
-        Utils.showErrorSnackBar(
-          error.response?.data['message'],
-        );
+          error.response?.data['message'].toString().toast;
       }
     });
   }
@@ -79,13 +65,17 @@ class OtpVerificationController extends GetxController {
     return true;
   }
 
-  void onTapLoginButton(OtpRequestModel otpRequestModel) {
+  Future<void> onTapLoginButton() async {
     if (isValidateLogin(
-      otp: otpRequestModel.otp.toString(),
+      otp: otpController.text,
     )) {
-      otp(
-        otpRequestModel: OtpRequestModel(
-          otp: otpRequestModel.otp.toString(),
+      verifyOtpApiCall(
+        loginRequestModel: LoginRequestModel(
+          code: otpController.text,
+            phone: phoneNumber,
+            platform: Platform.isAndroid ? 'android' : 'ios',
+            deviceId: await Utils.getDeviceId() ?? "",
+        fcmToken: SharedPreferenceUtil.getString(fcmTokenKey),
         ),
       );
     }

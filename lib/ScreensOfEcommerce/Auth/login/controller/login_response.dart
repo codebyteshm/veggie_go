@@ -1,90 +1,11 @@
 class LoginResponse {
-  int? status;
-  String? message;
-  Payload? payload;
-
-  LoginResponse({this.status, this.message, this.payload});
-
-  LoginResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'];
-    payload =
-        json['payload'] != null ? new Payload.fromJson(json['payload']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.payload != null) {
-      data['payload'] = this.payload!.toJson();
-    }
-    return data;
-  }
-}
-
-class Payload {
-  String? refreshToken;
-  int? id;
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? role;
-  String? created;
-  String? updated;
-  bool? isVerified;
-  String? jwtToken;
-
-  Payload(
-      {this.refreshToken,
-      this.id,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.role,
-      this.created,
-      this.updated,
-      this.isVerified,
-      this.jwtToken});
-
-  Payload.fromJson(Map<String, dynamic> json) {
-    refreshToken = json['refreshToken'];
-    id = json['id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    email = json['email'];
-    role = json['role'];
-    created = json['created'];
-    updated = json['updated'];
-    isVerified = json['isVerified'];
-    jwtToken = json['jwtToken'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['refreshToken'] = this.refreshToken;
-    data['id'] = this.id;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['email'] = this.email;
-    data['role'] = this.role;
-    data['created'] = this.created;
-    data['updated'] = this.updated;
-    data['isVerified'] = this.isVerified;
-    data['jwtToken'] = this.jwtToken;
-    return data;
-  }
-}
-
-
-class SendOtpModelResponse {
   bool? status;
   String? message;
   Data? data;
 
-  SendOtpModelResponse({this.status, this.message, this.data});
+  LoginResponse({this.status, this.message, this.data});
 
-  SendOtpModelResponse.fromJson(Map<String, dynamic> json) {
+  LoginResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
@@ -102,11 +23,139 @@ class SendOtpModelResponse {
 }
 
 class Data {
-  String? otp;
+  String? token;
+  User? user;
 
-  Data({this.otp});
+  Data({this.token, this.user});
 
   Data.fromJson(Map<String, dynamic> json) {
+    token = json['token'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['token'] = this.token;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    return data;
+  }
+}
+
+class User {
+  String? id;
+  String? phone;
+  String? firstName;
+  String? lastName;
+  String? email;
+  int? loginCount;
+  String? profileImage;
+  Null? referredByCode;
+  String? referralCode;
+  String? role;
+  String? fcmToken;
+  String? deviceId;
+  String? platform;
+  bool? isActive;
+  bool? isVerified;
+  String? createdAt;
+  String? updatedAt;
+
+  User(
+      {this.id,
+        this.phone,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.loginCount,
+        this.profileImage,
+        this.referredByCode,
+        this.referralCode,
+        this.role,
+        this.fcmToken,
+        this.deviceId,
+        this.platform,
+        this.isActive,
+        this.isVerified,
+        this.createdAt,
+        this.updatedAt});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    phone = json['phone'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    email = json['email'];
+    loginCount = json['loginCount'];
+    profileImage = json['profileImage'];
+    referredByCode = json['referredByCode'];
+    referralCode = json['referralCode'];
+    role = json['role'];
+    fcmToken = json['fcmToken'];
+    deviceId = json['deviceId'];
+    platform = json['platform'];
+    isActive = json['isActive'];
+    isVerified = json['isVerified'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['phone'] = this.phone;
+    data['firstName'] = this.firstName;
+    data['lastName'] = this.lastName;
+    data['email'] = this.email;
+    data['loginCount'] = this.loginCount;
+    data['profileImage'] = this.profileImage;
+    data['referredByCode'] = this.referredByCode;
+    data['referralCode'] = this.referralCode;
+    data['role'] = this.role;
+    data['fcmToken'] = this.fcmToken;
+    data['deviceId'] = this.deviceId;
+    data['platform'] = this.platform;
+    data['isActive'] = this.isActive;
+    data['isVerified'] = this.isVerified;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    return data;
+  }
+}
+
+
+
+class SendOtpModelResponse {
+  bool? status;
+  String? message;
+  OtpData? data;
+
+  SendOtpModelResponse({this.status, this.message, this.data});
+
+  SendOtpModelResponse.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? new OtpData.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class OtpData {
+  String? otp;
+
+  OtpData({this.otp});
+
+  OtpData.fromJson(Map<String, dynamic> json) {
     otp = json['otp'];
   }
 

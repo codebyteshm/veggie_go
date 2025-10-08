@@ -1,28 +1,29 @@
 class LoginRequestModel {
-  String? countryCode;
-  String? phoneNumber;
-  String? password;
-  String deviceId;
-  String deviceType;
-  String pushToken;
+  String? phone;
+  String? code;
+  String? fcmToken;
+  String? deviceId;
+  String? platform;
 
-  LoginRequestModel({
-    this.countryCode,
-    this.phoneNumber,
-    this.password,
-    required this.deviceType,
-    required this.deviceId,
-    required this.pushToken,
-  });
+  LoginRequestModel(
+      {this.phone, this.code, this.fcmToken, this.deviceId, this.platform});
 
-  Map<dynamic, dynamic> toJson() {
-    final Map<dynamic, dynamic> data = <dynamic, dynamic>{};
-    data['countryCode'] = countryCode;
-    data['phoneNumber'] = phoneNumber;
-    data['password'] = password;
-    data['device_id'] = deviceId;
-    data['device_type'] = deviceType;
-    data['push_token'] = pushToken;
+  LoginRequestModel.fromJson(Map<String, dynamic> json) {
+    phone = json['phone'];
+    code = json['code'];
+    fcmToken = json['fcmToken'];
+    deviceId = json['deviceId'];
+    platform = json['platform'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['phone'] = this.phone;
+    data['code'] = this.code;
+    data['fcmToken'] = this.fcmToken;
+    data['deviceId'] = this.deviceId;
+    data['platform'] = this.platform;
     return data;
   }
 }
+

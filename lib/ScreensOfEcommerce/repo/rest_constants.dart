@@ -1,15 +1,16 @@
 class RestConstants {
   static const String baseUrl = 'https://api.veggigo.com/api';
 
-  static const String loginUrl = '/users/authenticate';
-  static const String versionCheckerUrl = 'seller/version_checker';
+  static const String loginUrl = '/users/send-otp';
+  static const String homeUrl = '/home';
+  static const String uploadImageUrl = '/upload/image';
   static const String mobileNUmberCheck = 'seller/check_phone_nub';
   static const String docUpload = 'document/upload';
   static const String docUploadS3 = 'document/upload2Tos3';
   static const String generalDropdown = 'seller/general_dropdown';
   static const String registerBuyerUser = '/users/registerUser';
   static const String registerSellerUser = 'seller/sellerRegister';
-  static const String verifyOtp = '/users/verifyOtp';
+  static const String verifyOtp = '/users/verify-otp';
   static const String forGot = '/users/forgot-password';
   static const String searchProductLstApi = 'product/product_list?';
   static const String productDetailsByID =
@@ -17,7 +18,6 @@ class RestConstants {
   static const String orderDetailsByID =
       'order/order-details?id=';
   static const String getAllBanners = 'banners/getAllBanners';
-  static const String homeApi = 'product/home_api?';
   static const String faq = 'faq/getFaq';
   static const String getAddress = 'address/get_address';
   static const String deleteAddress = 'address/delete_address';

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:e_commerce46/Common/string_extention.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
@@ -34,20 +35,17 @@ class LoginController extends GetxController {
         .then((value) async {
           isLoading.value = false;
           loginModel = LoginResponse.fromJson(value.data);
-          if (loginModel?.payload?.role == "Seller") {
+          if (loginModel?.data?.user?.role == "USER") {
             Utils.showErrorSnackBar("Seller Account");
           } else {
-            // await saveLoginDataToSP(loginModel!);
+            await saveLoginDataToSP(loginModel!);
             SharedPreferenceUtil.putBool(isLoginKey, true);
-            SharedPreferenceUtil.putInt(userIdKey, loginModel?.payload?.id ?? 0);
             Get.offAllNamed(RoutesConstants.getStartView);
           }
         })
         .catchError((error) {
           isLoading.value = false;
-          if (error is DioError) {
-            Utils.showErrorSnackBar(error.response?.data['message']);
-          }
+          error.response?.data['message'].toString().toast;
         });
   }
 
@@ -59,7 +57,11 @@ class LoginController extends GetxController {
         .then((value) async {
           isLoading.value = false;
           sendOtpModelResponse = SendOtpModelResponse.fromJson(value.data);
-          Get.toNamed(RoutesConstants.otpVerificationView, arguments: ["+91 ${phoneNumberController.text}"]);
+          if(sendOtpModelResponse?.status == true) {
+            Get.toNamed(RoutesConstants.otpVerificationView, arguments: [(phoneNumberController.text)]);
+          }else{
+            sendOtpModelResponse?.message?.toast();
+          }
         })
         .catchError((error) {
           isLoading.value = false;
@@ -69,24 +71,25 @@ class LoginController extends GetxController {
         });
   }
 
-  bool isValidateLogin({required String phoneNumber, required String password}) {
+  bool isValidateLogin({required String phoneNumber}) {
     if (phoneNumber.isEmpty || phoneNumber == "") {
-      Utils.showErrorSnackBar('Please enter mobile number ');
+      'Please enter mobile number '.toast();
       return false;
     }
     if (phoneNumber.length < 10) {
-      Utils.showErrorSnackBar('Please enter valid mobile number ');
+      'Please enter valid mobile number '.toast();
       return false;
     }
     return true;
   }
 
   void onTapLoginButton(LoginRequestModel loginRequestModel) {
-    // if (isValidateLogin(password: loginRequestModel.password.toString(), phoneNumber: loginRequestModel.phoneNumber.toString())) {
+    if (isValidateLogin(phoneNumber: loginRequestModel.phone.toString())) {
       // Navigate directly to home screen
-      Get.toNamed(RoutesConstants.otpVerificationView, arguments: ["${loginRequestModel.countryCode} ${loginRequestModel.phoneNumber}"]);
+      // Get.toNamed(RoutesConstants.otpVerificationView, arguments: ["${loginRequestModel.countryCode} ${loginRequestModel.phoneNumber}"]);
       // Previous OTP verification navigation (commented out)
       // Get.toNamed(RoutesConstants.otpVerificationView,arguments: [phoneNumberController]);
+    sendOtp();
       // userLogin(
       //   loginRequestModel: LoginRequestModel(
       //     countryCode: loginRequestModel.countryCode.toString(),
@@ -97,6 +100,6 @@ class LoginController extends GetxController {
       //     pushToken: loginRequestModel.pushToken.toString(),
       //   ),
       // );
-    // }
+    }
   }
 }

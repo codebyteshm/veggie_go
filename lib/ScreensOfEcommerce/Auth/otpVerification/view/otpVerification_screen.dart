@@ -4,6 +4,7 @@ import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_request.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/otpVerification/controller/otpVerification_controller.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
 // import 'package:e_commerce46/ScreensOfEcommerce/Home/view/test_home_screen.dart';
@@ -92,7 +93,8 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                       SizedBox(height: 50.h),
                       CommonButton(
                         onTap: () {
-                          Get.toNamed(RoutesConstants.mainScreen, arguments: [false, 0, false]);
+                          controller.onTapLoginButton();
+                          // Get.toNamed(RoutesConstants.mainScreen, arguments: [false, 0, false]);
                           // Navigator.push(context,MaterialPageRoute(builder: (BuildContext context) => TestHomeApp()));
                         },
                         buttonMargin: EdgeInsets.symmetric(horizontal: 20.w),

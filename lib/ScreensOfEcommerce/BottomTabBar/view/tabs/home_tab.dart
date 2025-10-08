@@ -24,6 +24,13 @@ class _HomeTabState extends State<HomeTab> {
   final PageController _pageController = PageController(viewportFraction: 0.92);
   int _currentPage = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  BottomTabBarController bottomTabBarController = BottomTabBarController();
+
+  @override
+  void initState() {
+    super.initState();
+    bottomTabBarController.homeApiCall();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +208,7 @@ class _HomeTabState extends State<HomeTab> {
                 child: Image.asset(PNGImages.home_banner, fit: BoxFit.cover),
               ),
             ),
-            itemCount: 4,
+            itemCount: bottomTabBarController.homeResponseModel.data?.bannerImage?.length ?? 0,
           ),
         ),
         SizedBox(height: 8.h),

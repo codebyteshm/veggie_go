@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_appbar.dart';
 import 'package:e_commerce46/Common/common_button.dart';
@@ -109,12 +111,11 @@ class LoginView extends GetView<LoginController> {
                                         }
                                         controller.onTapLoginButton(
                                           LoginRequestModel(
-                                            countryCode: "+91",
-                                            phoneNumber: controller.phoneNumberController.text,
-                                            password: controller.passWordController.text,
+                                            code: "+91",
+                                            phone: controller.phoneNumberController.text,
+                                            platform: Platform.isAndroid ? 'android' : 'ios',
                                             deviceId: await Utils.getDeviceId() ?? "",
-                                            deviceType: Utils.getDeviceTypeID(),
-                                            pushToken: SharedPreferenceUtil.getString(fcmTokenKey),
+                                            fcmToken: SharedPreferenceUtil.getString(fcmTokenKey),
                                           ),
                                         );
                                         // isUserLogin = true;

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -174,19 +175,19 @@ class SharedPreferenceUtil {
   }
 }
 
-// Future<LoginResponse?> getLoginDataFromSP() async {
-//   final sp = await SharedPreferences.getInstance();
-//   final user = sp.getString("loginModelKey");
-//   if (user == null) {
-//     return null;
-//   }
-//   return LoginResponse.fromJson(jsonDecode(user));
-// }
-//
-// Future<bool> saveLoginDataToSP(LoginResponse loginResponse) async {
-//   final sp = await SharedPreferences.getInstance();
-//   return sp.setString("loginModelKey", jsonEncode(loginResponse.toJson()));
-// }
+Future<LoginResponse?> getLoginDataFromSP() async {
+  final sp = await SharedPreferences.getInstance();
+  final user = sp.getString("loginModelKey");
+  if (user == null) {
+    return null;
+  }
+  return LoginResponse.fromJson(jsonDecode(user));
+}
+
+Future<bool> saveLoginDataToSP(LoginResponse loginResponse) async {
+  final sp = await SharedPreferences.getInstance();
+  return sp.setString("loginModelKey", jsonEncode(loginResponse.toJson()));
+}
 // Future<bool> saveProductDetailsDataToSP(ProductDetailsResponse productDetailsResponse) async {
 //   final sp = await SharedPreferences.getInstance();
 //   return sp.setString("productDetailsModelKey", jsonEncode(productDetailsResponse.toJson()));
