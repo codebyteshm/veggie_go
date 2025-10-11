@@ -3,12 +3,29 @@ import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/Common/common_appbar.dart';
 import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/image.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/controller/bottom_tab_bar_controller.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/model/get_my_order_response_model.dart';
+import 'package:e_commerce46/utils/dateOrTime.dart';
+import 'package:e_commerce46/utils/utills.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class OrderTab extends StatelessWidget {
+class OrderTab extends StatefulWidget {
   const OrderTab({Key? key}) : super(key: key);
+
+  @override
+  State<OrderTab> createState() => _OrderTabState();
+}
+
+class _OrderTabState extends State<OrderTab> {
+  BottomTabBarController bottomTabBarController = Get.find<BottomTabBarController>();
+
+  @override
+  void initState() {
+    super.initState();
+    bottomTabBarController.getMyOrderCall();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +36,12 @@ class OrderTab extends StatelessWidget {
         padding: EdgeInsets.all(16.w),
         itemBuilder: (_, i) {
           final data = _orders()[i];
-          return _orderCard(context, data);
+          var orderData = bottomTabBarController.getMyOrderResponse.data?.orders?[i];
+          return _orderCard(context, data,item1: orderData);
         },
         separatorBuilder: (_, __) => SizedBox(height: 12.h),
-        itemCount: _orders().length,
+        // itemCount: _orders().length,
+        itemCount: bottomTabBarController.getMyOrderResponse.data?.orders?.length ?? 0,
       ),
     );
   }
@@ -56,7 +75,10 @@ class OrderTab extends StatelessWidget {
     ];
   }
 
-  Widget _orderCard(BuildContext context, _OrderItem item) {
+  Widget _orderCard(BuildContext context, _OrderItem item,{Orders? item1}) {
+    final String summary = generateCompactOrderSummary(item1?.items ?? []);
+    print(summary);
+    print('object');
     return GestureDetector(
       onTap: () {
         Get.to(() => const OrderDetailsView());
@@ -72,30 +94,59 @@ class OrderTab extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             children: [
-              Expanded(child: Text(item.id, style: openSansBold(fontSize: 12.sp, textColor: color00394D))),
-              _statusChip(item.status),
+              Expanded(child: Text('#${item1?.orderNumber ?? ''}', style: openSansBold(fontSize: 12.sp, textColor: color00394D))),
+              _statusChip(item1?.status ?? ''),
             ],
           ),
           SizedBox(height: 6.h),
           Row(
             children: [
               Expanded(
-                child: Text(item.dateTime, style: openSansRegular(fontSize: 11.sp, textColor: color969696)),
-              ),],
+                child: Text(formatIsoDate(item1?.createdAt.toString() ?? ''), style: openSansRegular(fontSize: 11.sp, textColor: color969696)),),],
           ),
           SizedBox(height: 8.h),
           Row(
             children: [
               Text(item.emojis, style: openSansBold(fontSize: 16.sp, textColor: color00394D)),
               SizedBox(width: 8.w),
-              Expanded(child: Text(item.summary, style: openSansRegular(fontSize: 12.sp, textColor: color00394D), maxLines: 1, overflow: TextOverflow.ellipsis)),
+              Expanded(child: Text(summary, style: openSansRegular(fontSize: 12.sp, textColor: color00394D), maxLines: 1, overflow: TextOverflow.ellipsis)),
             ],
           ),
           SizedBox(height: 10.h),
-          Text('₹${item.price.toStringAsFixed(2)}', style: openSansBold(fontSize: 14.sp, textColor: color00394D)),
+          Text('₹${item1?.totalAmount.toString() ?? ''}', style: openSansBold(fontSize: 14.sp, textColor: color00394D)),
         ]),
       ),
     );
+  }
+
+  String generateCompactOrderSummary(List<Items> items) {
+    if (items.isEmpty) {
+      return 'No items in order';
+    }
+
+    final Set<String> uniqueProductNames = {};
+    for (final item in items) {
+      // final productName = item['variant']?['product']?['name'];
+      final productName = item.variant?.product?.name ?? '';
+      if (productName != null) {
+        uniqueProductNames.add(productName as String);
+      }
+    }
+
+    final List<String> namesList = uniqueProductNames.toList();
+    final int uniqueCount = namesList.length;
+
+    if (uniqueCount == 0) {
+      return 'No products';
+    }
+
+    if (uniqueCount <= 2) {
+      return namesList.join(', ');
+    } else {
+      final String firstTwo = namesList.sublist(0, 2).join(', ');
+      final int remaining = uniqueCount - 2;
+      return '$firstTwo +$remaining more';
+    }
   }
 
   Widget _statusChip(String status) {

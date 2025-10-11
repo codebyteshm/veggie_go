@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../Common/custom_dialog.dart';
 
 class Utils {
@@ -16,6 +17,7 @@ class Utils {
       backgroundColor: Colors.green,
     ).show();
   }
+
 
   static showErrorSnackBar(String? message) {
     GetSnackBar(message: message??"No internet connection found!", duration: Duration(seconds: 5), backgroundColor: Color(0xFFD9534F)).show();

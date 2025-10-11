@@ -1,4 +1,5 @@
 import 'package:e_commerce46/Common/color.dart';
+import 'package:e_commerce46/Common/customized_network_image.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +26,13 @@ class HomeCategoryCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Image.asset(imagePath, height: 70.h),
+          // Image.asset(imagePath, height: 70.h),
+          CustomizedNetworkImage.getImage(url: imagePath,height: 70.h,fit: BoxFit.contain),
           SizedBox(width: 10.w),
           Expanded(
             child: Text(
               title,
-              style: openSansBold(fontSize: 12.sp, textColor: Colors.black),
+              style: openSansBold(fontSize: 16.sp, textColor: Colors.black),
             ),
           ),
         ],
@@ -76,7 +78,7 @@ class HomeProductCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(12.r)),
-                child: Image.asset(imagePath, height: 120.h, width: double.infinity, fit: BoxFit.cover),
+                child: CustomizedNetworkImage.getImage(url: imagePath, height: 120.h,fit: BoxFit.cover),
               ),
               Padding(
                 padding: EdgeInsets.all(10.w),
@@ -109,9 +111,13 @@ class HomeProductCard extends StatelessWidget {
                     SizedBox(height: 10.h),
                     Row(
                       children: [
-                        Text(
-                          title,
-                          style: openSansMedium(fontSize: 12.sp, textColor: color00394D),
+                        SizedBox(
+                          width: 58.w,
+                          child: Text(
+                            title,
+                            maxLines: 2,
+                            style: openSansMedium(fontSize: 12.sp, textColor: color00394D,overflow: TextOverflow.ellipsis),
+                          ),
                         ),
                         Spacer(),
                         _chip(unit),

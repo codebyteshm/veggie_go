@@ -58,7 +58,7 @@ class CustomizedNetworkImage {
           : CachedNetworkImage(
               key: ValueKey<String>(url),
               imageUrl:
-                  getNewUrl(url, calculateWidth(width, sizeType), showOriginal),
+                  getNewUrl('https://api.veggigo.com$url', calculateWidth(width, sizeType), showOriginal),
               color: colorDC4326,
               fadeInCurve: Curves.bounceInOut,
               memCacheHeight: calculateHeight(height, sizeType).ceil(),

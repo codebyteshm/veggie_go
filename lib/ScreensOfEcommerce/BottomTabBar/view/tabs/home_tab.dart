@@ -1,9 +1,13 @@
 import 'package:e_commerce46/Common/color.dart';
+import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/common_widget.dart';
+import 'package:e_commerce46/Common/customized_network_image.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/Common/home_cards.dart';
+import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -24,12 +28,18 @@ class _HomeTabState extends State<HomeTab> {
   final PageController _pageController = PageController(viewportFraction: 0.92);
   int _currentPage = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  BottomTabBarController bottomTabBarController = BottomTabBarController();
+  BottomTabBarController bottomTabBarController = Get.find<BottomTabBarController>();
 
   @override
   void initState() {
+    getUserData();
     super.initState();
     bottomTabBarController.homeApiCall();
+  }
+
+  getUserData()async{
+    var userData = await getLoginDataFromSP()?..data;
+    print(userData?.data?.user?.firstName);
   }
 
   @override
@@ -70,9 +80,72 @@ class _HomeTabState extends State<HomeTab> {
           Get.to(() => const DeleteAccountScreen());
         },
         onLogout: () {
-          Get.back();
-          Get.offAllNamed(RoutesConstants.loginView);
-        },
+          // Get.back();
+          // Get.offAllNamed(RoutesConstants.loginView);
+          showModalBottomSheet<void>(
+              isScrollControlled: true,
+              backgroundColor: whiteColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(16.r),
+                  topLeft: Radius.circular(16.r),
+                ),
+              ),
+              context: context,
+              builder: (BuildContext context) {
+                return Padding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  child: SizedBox(
+                      height: 255.h,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20.h),
+                          Container(
+                            width: Get.width,
+                            color: Colors.transparent,
+                            child: Stack(
+                              children: [
+                                Column(
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        'logout',
+                                        style: openSansBold(
+                                            fontSize: 18.sp, textColor: blackColor),
+                                      ),
+                                    ),
+                                    heightBox(24.h),
+                                    Text(
+                                      'logoutSub',
+                                      textAlign: TextAlign.center,
+                                      style: openSansBold(
+                                          fontSize: 18.sp, textColor: color00394D),
+                                    ),
+                                    heightBox(40.h),
+                                    CommonButton(
+                                      onTap: () {},
+                                      text: 'logout',
+                                    )
+                                  ],
+                                ),
+                                Positioned(
+                                  right: 15.w,
+                                  top: 5.h,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: SvgPicture.asset(SVGImages.email),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      )),
+                );
+              },
+            );}
       ),
       body: Container(
         width: Get.width,
@@ -146,9 +219,9 @@ class _HomeTabState extends State<HomeTab> {
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (_, i) =>
-                              HomeCategoryCard(imagePath: PNGImages.dummy, title: i % 2 == 0 ? 'Fresh Fruits' : 'Fresh Vegetables'),
+                              HomeCategoryCard(imagePath: bottomTabBarController.homeResponseModel.data?.categories?[i].imageUrl ?? '', title: bottomTabBarController.homeResponseModel.data?.categories?[i].name ?? ''),
                           separatorBuilder: (_, __) => SizedBox(width: 12.w),
-                          itemCount: 6,
+                          itemCount: bottomTabBarController.homeResponseModel.data?.categories?.length ?? 0,
                         ),
                       ),
                       SizedBox(height: 18.h),
@@ -167,18 +240,18 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                       SizedBox(height: 12.h),
                       SizedBox(
-                        height: 223.h,
+                        height: 228.h,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (_, i) => HomeProductCard(
-                            imagePath: PNGImages.orange,
-                            title: i % 2 == 0 ? 'Orange' : 'Apple',
+                            imagePath: bottomTabBarController.homeResponseModel.data?.bestSellingProducts?[i].imageUrl ?? '',
+                            title: bottomTabBarController.homeResponseModel.data?.bestSellingProducts?[i].name ?? '',
                             price: '₹45',
                             unit: i % 2 == 0 ? '1kg' : '500 gm',
                             onTapAdd: () {},
                           ),
                           separatorBuilder: (_, __) => SizedBox(width: 12.w),
-                          itemCount: 10,
+                          itemCount: bottomTabBarController.homeResponseModel.data?.bestSellingProducts?.length ?? 0,
                         ),
                       ),
                       SizedBox(height: 20.h),
@@ -201,11 +274,11 @@ class _HomeTabState extends State<HomeTab> {
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (i) => setState(() => _currentPage = i),
-            itemBuilder: (_, i) => Padding(
+            itemBuilder: (data, i) => Padding(
               padding: EdgeInsets.only(right: 8.w),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.r),
-                child: Image.asset(PNGImages.home_banner, fit: BoxFit.cover),
+                child: CustomizedNetworkImage.getImage(url: bottomTabBarController.homeResponseModel.data?.bannerImage?[i] ?? ''),
               ),
             ),
             itemCount: bottomTabBarController.homeResponseModel.data?.bannerImage?.length ?? 0,
@@ -215,7 +288,7 @@ class _HomeTabState extends State<HomeTab> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            4,
+            bottomTabBarController.homeResponseModel.data?.bannerImage?.length ?? 0,
             (i) => Container(
               width: 6.w,
               height: 6.w,

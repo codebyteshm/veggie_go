@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
+import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:e_commerce46/utils/utills.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' as gets;
@@ -25,7 +26,7 @@ class AppInterceptor extends Interceptor {
         'Authorization': await getToken(),
       });
       options.headers["Cookie"] = await getRefreshToken();
-      // options.headers['Authorization'] = '${await getToken()}';
+      options.headers['Authorization'] = '${await getToken()}';
     }
     // options.headers['Authorization'] = '${await getToken()}';
     return handler.next(options);
@@ -33,8 +34,7 @@ class AppInterceptor extends Interceptor {
 
   getToken() async {
     String? accessToken =
-        "Bearer ";
-        // "Bearer ${(await getLoginDataFromSP())?.payload?.jwtToken}";
+        "Bearer ${(await getLoginDataFromSP())?.data?.token}";
 
     if (kDebugMode) {
       print("Authorization $accessToken");
@@ -43,9 +43,7 @@ class AppInterceptor extends Interceptor {
   }
 
   getRefreshToken() async {
-    String? refreshToken =
-        "refreshToken = ";
-        // "refreshToken =${(await getLoginDataFromSP())?.payload?.refreshToken}";
+    String? refreshToken = "refreshToken =${(await getLoginDataFromSP())?.data?.token}";
 
     if (kDebugMode) {
       print("Refresh Token $refreshToken");

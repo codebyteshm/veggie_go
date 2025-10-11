@@ -15,8 +15,23 @@ import 'package:get/get.dart';
 class BottomTabBarScreen extends GetView<BottomTabBarController> {
   const BottomTabBarScreen({Key? key}) : super(key: key);
 
+  // Future<bool> _onWillPop() async {
+  //   if (selectedBottomSheetIcon != _pState) {
+  //     selectedBottomSheetIcon = 0;
+  //     _pageController.jumpToPage(0);
+  //   } else if ((changeTab.value ? 3 :controller.selectedIndex.value) != 0) {
+  //     changeTab.value ? 3 :controller.selectedIndex.value = 0;
+  //     setState(() {});
+  //   } else {
+  //     openExitDialog();
+  //   }
+  //   return false;
+  // }
+
   @override
   Widget build(BuildContext context) {
+
+
     final tabs = const [HomeTab(), ProductTab(), WalletTab(), OrderTab()];
     return Obx(
       () => Stack(

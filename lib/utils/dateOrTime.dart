@@ -11,6 +11,17 @@ String convertDateToDDMMYYYYFormat({String? dateString}) {
   return date;
 }
 
+String formatIsoDate(String isoDateString) {
+  try {
+    final DateTime dateTime = DateTime.parse(isoDateString);
+    final DateTime localDateTime = dateTime.toLocal();
+    final DateFormat formatter = DateFormat('MMM d, yyyy • h:mm a');
+    return formatter.format(localDateTime);
+  } catch (e) {
+    return 'Invalid Date';
+  }
+}
+
 commonBottomSheet(BuildContext context,
     {GestureTapCallback? onTapCamera, GestureTapCallback? onTapGallery}) {
   return Container(

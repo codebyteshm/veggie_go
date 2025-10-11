@@ -13,12 +13,13 @@ TextStyle openSansRegular({Color? textColor, double? fontSize}) => TextStyle(
     );
 
 TextStyle openSansMedium(
-        {Color? textColor, double? fontSize, double? height}) =>
+        {Color? textColor, double? fontSize, double? height,TextOverflow? overflow}) =>
     TextStyle(
       color: textColor,
       fontSize: fontSize,
       fontFamily: 'OpenSans_Medium',
       height: height,
+      overflow: overflow ?? null
     );
 
 TextStyle openSansSemiBold(

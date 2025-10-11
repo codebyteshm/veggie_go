@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:e_commerce46/Common/string_extention.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_request.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/view/bottom_tab_bar_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
@@ -16,7 +15,6 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../utils/utills.dart';
-import 'otpVerification_request.dart';
 
 class OtpVerificationController extends GetxController {
   TextEditingController otpController = TextEditingController();
@@ -46,7 +44,7 @@ class OtpVerificationController extends GetxController {
       await saveLoginDataToSP(loginResponse!);
       SharedPreferenceUtil.putBool(isLoginKey, true);
       if(loginResponse?.data?.user?.role == "USER"){
-        Get.toNamed(RoutesConstants.mainScreen);
+        Get.offAllNamed(RoutesConstants.mainScreen);
       }
     }).catchError((error) {
       isLoading.value = false;
