@@ -38,6 +38,7 @@ class PNGImages {
   static String icBottomOrders = "assets/png_image/ic_bottom_orders.png";
   static String icBottomProduct = "assets/png_image/ic_bottom_product.png";
   static String icBottomWallet = "assets/png_image/ic_bottom_wallet.png";
+  static String dummyProfile = "assets/png_image/dummyProfile.jpg";
 }
 
 class SVGImages {

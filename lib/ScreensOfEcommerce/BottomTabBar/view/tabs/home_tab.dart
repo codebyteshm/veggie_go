@@ -80,72 +80,73 @@ class _HomeTabState extends State<HomeTab> {
           Get.to(() => const DeleteAccountScreen());
         },
         onLogout: () {
-          // Get.back();
-          // Get.offAllNamed(RoutesConstants.loginView);
-          showModalBottomSheet<void>(
-              isScrollControlled: true,
-              backgroundColor: whiteColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(16.r),
-                  topLeft: Radius.circular(16.r),
-                ),
-              ),
-              context: context,
-              builder: (BuildContext context) {
-                return Padding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  child: SizedBox(
-                      height: 255.h,
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20.h),
-                          Container(
-                            width: Get.width,
-                            color: Colors.transparent,
-                            child: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        'logout',
-                                        style: openSansBold(
-                                            fontSize: 18.sp, textColor: blackColor),
-                                      ),
-                                    ),
-                                    heightBox(24.h),
-                                    Text(
-                                      'logoutSub',
-                                      textAlign: TextAlign.center,
-                                      style: openSansBold(
-                                          fontSize: 18.sp, textColor: color00394D),
-                                    ),
-                                    heightBox(40.h),
-                                    CommonButton(
-                                      onTap: () {},
-                                      text: 'logout',
-                                    )
-                                  ],
-                                ),
-                                Positioned(
-                                  right: 15.w,
-                                  top: 5.h,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Get.back();
-                                    },
-                                    child: SvgPicture.asset(SVGImages.email),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      )),
-                );
-              },
-            );}
+          Get.back();
+          Get.offAllNamed(RoutesConstants.loginView);
+        }
+          // showModalBottomSheet<void>(
+          //     isScrollControlled: true,
+          //     backgroundColor: whiteColor,
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.only(
+          //         topRight: Radius.circular(16.r),
+          //         topLeft: Radius.circular(16.r),
+          //       ),
+          //     ),
+          //     context: context,
+          //     builder: (BuildContext context) {
+          //       return Padding(
+          //         padding: MediaQuery.of(context).viewInsets,
+          //         child: SizedBox(
+          //             height: 255.h,
+          //             child: Column(
+          //               children: [
+          //                 SizedBox(height: 20.h),
+          //                 Container(
+          //                   width: Get.width,
+          //                   color: Colors.transparent,
+          //                   child: Stack(
+          //                     children: [
+          //                       Column(
+          //                         children: [
+          //                           Center(
+          //                             child: Text(
+          //                               'logout',
+          //                               style: openSansBold(
+          //                                   fontSize: 18.sp, textColor: blackColor),
+          //                             ),
+          //                           ),
+          //                           heightBox(24.h),
+          //                           Text(
+          //                             'logoutSub',
+          //                             textAlign: TextAlign.center,
+          //                             style: openSansBold(
+          //                                 fontSize: 18.sp, textColor: color00394D),
+          //                           ),
+          //                           heightBox(40.h),
+          //                           CommonButton(
+          //                             onTap: () {},
+          //                             text: 'logout',
+          //                           )
+          //                         ],
+          //                       ),
+          //                       Positioned(
+          //                         right: 15.w,
+          //                         top: 5.h,
+          //                         child: InkWell(
+          //                           onTap: () {
+          //                             Get.back();
+          //                           },
+          //                           child: SvgPicture.asset(SVGImages.email),
+          //                         ),
+          //                       )
+          //                     ],
+          //                   ),
+          //                 ),
+          //               ],
+          //             )),
+          //       );
+          //     },
+          //   );}
       ),
       body: Container(
         width: Get.width,

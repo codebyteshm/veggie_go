@@ -10,7 +10,6 @@ import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_controller.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_request.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Driver/controller/driver_controller.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
 import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
@@ -151,8 +150,6 @@ class LoginView extends GetView<LoginController> {
                                         SizedBox(width: 8.w),
                                         InkWell(
                                           onTap: () {
-                                            Get.lazyPut<DriverController>(() => DriverController());
-
                                             Get.toNamed(RoutesConstants.partnerBottomTabBarScreen);
                                           },
                                           child: Text(

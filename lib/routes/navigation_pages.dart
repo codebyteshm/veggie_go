@@ -9,15 +9,12 @@ import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/view/bottom_tab_bar
 import 'package:e_commerce46/ScreensOfEcommerce/CancelOrder/binding/cancel_order_binding.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/CancelOrder/cancel_confirm_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/CancelOrder/cancel_reason_screen.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Driver/binding/driver_binding.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Driver/view/driver_screen.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/controller/partner_order_detail_controller.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/binding/partner_order_detail_binding.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/view/partner_order_detail_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/OrderSuccess/binding/order_success_binding.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/OrderSuccess/view/order_success_screen.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/PartnerBottomTabBar/binding/partner_bottom_tab_bar_binding.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/PartnerBottomTabBar/view/partner_bottom_tab_bar_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Partner/PartnerBottomTabBar/binding/partner_bottom_tab_bar_binding.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Partner/PartnerBottomTabBar/view/partner_bottom_tab_bar_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/binding/partner_order_detail_binding.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/view/partner_order_detail_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/ProductDetails/binding/product_details_binding.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/ProductDetails/view/product_details_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Profile/binding/profile_binding.dart';
@@ -75,8 +72,6 @@ class GetPages {
     // Order Success
     GetPage(name: RoutesConstants.orderSuccessView, page: () => const OrderSuccessScreen(), binding: OrderSuccessBinding()),
     // Driver
-    GetPage(name: RoutesConstants.driverView, page: () => const DriverScreen(), binding: DriverBinding()),
-    // Partner Order Detail
     GetPage(name: RoutesConstants.partnerOrderDetailView, page: () => const PartnerOrderDetailScreen(), binding: PartnerOrderDetailBinding()),
 
     //Partner

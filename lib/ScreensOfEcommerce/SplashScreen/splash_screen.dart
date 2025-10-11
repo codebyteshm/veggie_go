@@ -24,11 +24,11 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
   @override
   void initState() {
       Timer(const Duration(seconds: 3), () {
-        if(SharedPreferenceUtil.getBool(isLoginKey)){
-          Get.offAllNamed(RoutesConstants.mainScreen);
-        }else {
-          Get.offAllNamed(RoutesConstants.loginView);
-        }
+        // if(SharedPreferenceUtil.getBool(isLoginKey)){
+        //   Get.offAllNamed(RoutesConstants.mainScreen);
+        // }else {
+          Get.offAllNamed(RoutesConstants.partnerBottomTabBarScreen);
+        // }
       });
     // initPackageInfo();
     // SharedPreferenceUtil.putBool(nCommonClick, false);
