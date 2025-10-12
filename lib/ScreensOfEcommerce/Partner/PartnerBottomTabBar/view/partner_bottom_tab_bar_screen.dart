@@ -31,7 +31,7 @@ class PartnerBottomTabBarScreen extends GetView<PartnerBottomTabBarController> {
               height: 62.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [_item(0, SVGImages.bHome, 'Home'), _item(1, SVGImages.bOrders, 'Orders'), _item(2, SVGImages.bOngoing, 'Ongoing'), _item(3, SVGImages.bPending, 'Pending')],
+                children: [_item(0, SVGImages.bHome, 'Home'), _item(1, SVGImages.bOrders, 'Orders'), _item(2, SVGImages.bOngoing, 'Ongoing'),],
               ),
             ),
           ),
@@ -52,7 +52,7 @@ class PartnerBottomTabBarScreen extends GetView<PartnerBottomTabBarController> {
           SizedBox(height: 4.h),
           Text(
             label,
-            style: openSansSemiBold(fontSize: 10.sp, textColor: isActive ? color00394D : color969696),
+            style: openSansSemiBold(fontSize: 10.sp, textColor: isActive ? colorPrimary : color969696),
           ),
         ],
       ),

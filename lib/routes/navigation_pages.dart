@@ -13,6 +13,9 @@ import 'package:e_commerce46/ScreensOfEcommerce/OrderSuccess/binding/order_succe
 import 'package:e_commerce46/ScreensOfEcommerce/OrderSuccess/view/order_success_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Partner/PartnerBottomTabBar/binding/partner_bottom_tab_bar_binding.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Partner/PartnerBottomTabBar/view/partner_bottom_tab_bar_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Partner/PartnerBottomTabBar/view/partner_delivery_completed_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Partner/PartnerBottomTabBar/view/partner_my_orders_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Partner/PartnerBottomTabBar/view/partner_otp_verification_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/binding/partner_order_detail_binding.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/PartnerOrderDetail/view/partner_order_detail_screen.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/ProductDetails/binding/product_details_binding.dart';
@@ -75,6 +78,11 @@ class GetPages {
     GetPage(name: RoutesConstants.partnerOrderDetailView, page: () => const PartnerOrderDetailScreen(), binding: PartnerOrderDetailBinding()),
 
     //Partner
+    GetPage(name: RoutesConstants.partnerBottomTabBarScreen, page: () => const PartnerBottomTabBarScreen(), binding: PartnerBottomTabBarBinding()),
+
+    GetPage(name: RoutesConstants.partnerOtpVerificationView, page: () => PartnerOtpVerificationScreen()),
+    GetPage(name: RoutesConstants.partnerDeliveryCompletedView, page: () => PartnerDeliveryCompletedScreen()),
+    GetPage(name: RoutesConstants.partnerMyOrdersView, page: () => const PartnerMyOrdersScreen()),
     GetPage(name: RoutesConstants.partnerBottomTabBarScreen, page: () => const PartnerBottomTabBarScreen(), binding: PartnerBottomTabBarBinding()),
   ];
 }

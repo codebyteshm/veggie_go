@@ -71,5 +71,8 @@ class SVGImages {
   static const String bOngoing = 'assets/svg_image/b_ongoing.svg';
   static const String bOrders = 'assets/svg_image/b_orders.svg';
   static const String bPending = 'assets/svg_image/b_pending.svg';
+  static const String op2 = 'assets/svg_image/op2.svg';
+  static const String op3 = 'assets/svg_image/op3.svg';
+  static const String op4 = 'assets/svg_image/op4.svg';
 
 }

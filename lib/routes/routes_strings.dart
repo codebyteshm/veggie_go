@@ -45,10 +45,12 @@ class RoutesConstants {
   static const driverView = "/DriverView";
   static const partnerOrderDetailView = "/PartnerOrderDetailView";
 
-
   // Profile & Account
   static const profile = "/Profile";
 
   //Partner
-  static const partnerBottomTabBarScreen = "/PartnerBottomTabBarScreen";
+  static const partnerBottomTabBarScreen = "/PartnerBottomTabBarScreen";  //Partner
+  static const partnerDeliveryCompletedView = "/PartnerDeliveryCompletedView";
+  static const partnerMyOrdersView = "/PartnerMyOrdersView";
+  static const partnerOtpVerificationView = "/PartnerOtpVerificationView";
 }

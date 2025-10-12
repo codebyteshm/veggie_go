@@ -6,13 +6,16 @@ const Color colorPrimary = Color(0xff738C4B);
 const Color color00394D = Color(0xff00394D);
 const Color color9DB2CE = Color(0xff9DB2CE);
 const Color colorF0FDF4 = Color(0xffF0FDF4);
+const Color color111827 = Color(0xff111827);
 const Color colorE5E7EB = Color(0xffE5E7EB);
 const Color color6A6A6A = Color(0xff6A6A6A);
 const Color color1C1C1C = Color(0xff1C1C1C);
+const Color color166534 = Color(0xff166534);
 const Color colorD1D5DB = Color(0xffD1D5DB);
 const Color colorF3F4F6 = Color(0xffF3F4F6);
 const Color color0E0E0 = Color(0xffE0E0E0);
 const Color color969696 = Color(0xff969696);
+const Color color2B2B2A = Color(0xff2B2B2A);
 const Color color1F2937 = Color(0xff1F2937);
 const Color color4B5563 = Color(0xff4B5563);
 const Color color6B7280 = Color(0xff6B7280);
@@ -96,3 +99,18 @@ const Color color5F5F5F= Color(0xff5F5F5F);
 const Color color0C0E38= Color(0xff0C0E38);
 const Color colorDCDCDC= Color(0xffDCDCDC);
 const Color colorFFC1B5= Color(0xffFFC1B5);
+
+// Figma palette centralization (replace these with exact Figma tokens/hex if needed)
+class FigmaColors {
+  static const Color primary = colorPrimary;        // Selected states, primary buttons
+  static const Color textStrong = color0D1833;      // Titles, strong text
+  static const Color textMuted = color757575;       // Helper/secondary text
+  static const Color card = colorF3F4F6;            // Light card surfaces
+  static const Color border = colorE1E1E1;          // Neutral borders
+  static const Color outline = colorD1D5DB;         // Soft outlines (e.g., cancel button)
+  static const Color secondaryText = color374151;   // Neutral dark text
+  static const Color badgeBg = colorEDDEA9;         // Status badge background
+  static const Color badgeText = colorA48000;       // Status badge text
+  static const Color inactive = colorE1E1E1;        // Inactive icons/connectors/labels
+  static const Color softGreen = colorDCFCE7;       // Soft green circles/chips
+}
