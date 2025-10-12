@@ -1,0 +1,9 @@
+{
+  "name": "e_commerce46",
+  "short_name": "e_commerce46",
+  "theme_color": "#4CAF50",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/"
+}
