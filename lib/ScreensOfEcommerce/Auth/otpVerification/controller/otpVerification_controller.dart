@@ -45,6 +45,8 @@ class OtpVerificationController extends GetxController {
       SharedPreferenceUtil.putBool(isLoginKey, true);
       if(loginResponse?.data?.user?.role == "USER"){
         Get.offAllNamed(RoutesConstants.mainScreen);
+      }else{
+        Get.offAllNamed(RoutesConstants.partnerBottomTabBarScreen);
       }
     }).catchError((error) {
       isLoading.value = false;

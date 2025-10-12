@@ -152,117 +152,120 @@ class _HomeTabState extends State<HomeTab> {
         width: Get.width,
         height: Get.height,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 205.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: colorPrimary,
-                image: DecorationImage(image: AssetImage(PNGImages.homeBackground), fit: BoxFit.fill),
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16.r), bottomRight: Radius.circular(16.r)),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(top: 50.h, left: 20.w, right: 20.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: [
-                      GestureDetector(
-                        onTap: () => _scaffoldKey.currentState?.openDrawer(),
-                        child: SvgPicture.asset(SVGImages.sideManu),
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(SVGImages.filter)
-                    ]),
-                    heightBox(10.h),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 90.w),
-                      child: Image.asset(PNGImages.appLogo),
-                    ),
-                    heightBox(10.h),
-                    Text(
-                      'Hy, James',
-                      style: openSansMedium(fontSize: 14.sp, textColor: whiteColor),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Are You Looking ',
-                          style: openSansBold(fontSize: 18.sp, textColor: whiteColor),
-                        ),
-                        Text(
-                          'Shopping',
-                          style: openSansBold(fontSize: 18.sp, textColor: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 205.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: colorPrimary,
+                  image: DecorationImage(image: AssetImage(PNGImages.homeBackground), fit: BoxFit.fill),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16.r), bottomRight: Radius.circular(16.r)),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(10.w),
-                child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 50.h, left: 20.w, right: 20.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _banner(),
-                      SizedBox(height: 14.h),
-                      Text(
-                        'Categories',
-                        style: openSansBold(fontSize: 14.sp, textColor: color00394D),
-                      ),
-                      SizedBox(height: 12.h),
-                      SizedBox(
-                        height: 120.h,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (_, i) =>
-                              HomeCategoryCard(imagePath: bottomTabBarController.homeResponseModel.data?.categories?[i].imageUrl ?? '', title: bottomTabBarController.homeResponseModel.data?.categories?[i].name ?? ''),
-                          separatorBuilder: (_, __) => SizedBox(width: 12.w),
-                          itemCount: bottomTabBarController.homeResponseModel.data?.categories?.length ?? 0,
+                      Row(children: [
+                        GestureDetector(
+                          onTap: () => _scaffoldKey.currentState?.openDrawer(),
+                          child: SvgPicture.asset(SVGImages.sideManu),
                         ),
+                        Spacer(),
+                        SvgPicture.asset(SVGImages.filter)
+                      ]),
+                      heightBox(10.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 90.w),
+                        child: Image.asset(PNGImages.appLogo),
                       ),
-                      SizedBox(height: 18.h),
+                      heightBox(10.h),
+                      Text(
+                        'Hy, James',
+                        style: openSansMedium(fontSize: 14.sp, textColor: whiteColor),
+                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Best Selling Products',
-                            style: openSansBold(fontSize: 14.sp, textColor: color00394D),
+                            'Are You Looking ',
+                            style: openSansBold(fontSize: 18.sp, textColor: whiteColor),
                           ),
                           Text(
-                            'View all',
-                            style: openSansMedium(fontSize: 12.sp, textColor: colorPrimary),
+                            'Shopping',
+                            style: openSansBold(fontSize: 18.sp, textColor: Colors.black),
                           ),
                         ],
                       ),
-                      SizedBox(height: 12.h),
-                      SizedBox(
-                        height: 228.h,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (_, i) => HomeProductCard(
-                            imagePath: bottomTabBarController.homeResponseModel.data?.bestSellingProducts?[i].imageUrl ?? '',
-                            title: bottomTabBarController.homeResponseModel.data?.bestSellingProducts?[i].name ?? '',
-                            price: '₹45',
-                            unit: i % 2 == 0 ? '1kg' : '500 gm',
-                            onTapAdd: () {},
-                          ),
-                          separatorBuilder: (_, __) => SizedBox(width: 12.w),
-                          itemCount: bottomTabBarController.homeResponseModel.data?.bestSellingProducts?.length ?? 0,
-                        ),
-                      ),
-                      SizedBox(height: 20.h),
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(10.w),
+                  child: SingleChildScrollView(
+                    child: Obx(
+                      ()=> Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _banner(),
+                          SizedBox(height: 14.h),
+                          Text(
+                            'Categories',
+                            style: openSansBold(fontSize: 14.sp, textColor: color00394D),
+                          ),
+                          SizedBox(height: 12.h),
+                          SizedBox(
+                            height: 120.h,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (_, i) =>
+                                  HomeCategoryCard(imagePath: bottomTabBarController.homeResponseModel.value.data?.categories?[i].imageUrl ?? '', title: bottomTabBarController.homeResponseModel.value.data?.categories?[i].name ?? ''),
+                              separatorBuilder: (_, __) => SizedBox(width: 12.w),
+                              itemCount: bottomTabBarController.homeResponseModel.value.data?.categories?.length ?? 0,
+                            ),
+                          ),
+                          SizedBox(height: 18.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Best Selling Products',
+                                style: openSansBold(fontSize: 14.sp, textColor: color00394D),
+                              ),
+                              Text(
+                                'View all',
+                                style: openSansMedium(fontSize: 12.sp, textColor: colorPrimary),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 12.h),
+                          SizedBox(
+                            height: 228.h,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (_, i) => HomeProductCard(
+                                imagePath: bottomTabBarController.homeResponseModel.value.data?.bestSellingProducts?[i].imageUrl ?? '',
+                                title: bottomTabBarController.homeResponseModel.value.data?.bestSellingProducts?[i].name ?? '',
+                                price: '₹45',
+                                unit: i % 2 == 0 ? '1kg' : '500 gm',
+                                onTapAdd: () {},
+                              ),
+                              separatorBuilder: (_, __) => SizedBox(width: 12.w),
+                              itemCount: bottomTabBarController.homeResponseModel.value.data?.bestSellingProducts?.length ?? 0,
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
       ),
     );
   }
@@ -279,17 +282,17 @@ class _HomeTabState extends State<HomeTab> {
               padding: EdgeInsets.only(right: 8.w),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.r),
-                child: CustomizedNetworkImage.getImage(url: bottomTabBarController.homeResponseModel.data?.bannerImage?[i] ?? ''),
+                child: CustomizedNetworkImage.getImage(url: bottomTabBarController.homeResponseModel.value.data?.bannerImage?[i] ?? ''),
               ),
             ),
-            itemCount: bottomTabBarController.homeResponseModel.data?.bannerImage?.length ?? 0,
+            itemCount: bottomTabBarController.homeResponseModel.value.data?.bannerImage?.length ?? 0,
           ),
         ),
         SizedBox(height: 8.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            bottomTabBarController.homeResponseModel.data?.bannerImage?.length ?? 0,
+            bottomTabBarController.homeResponseModel.value.data?.bannerImage?.length ?? 0,
             (i) => Container(
               width: 6.w,
               height: 6.w,

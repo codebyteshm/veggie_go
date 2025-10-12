@@ -6,6 +6,7 @@ import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/model/home_response
 import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/model/update_user_request_model.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
+import 'package:e_commerce46/routes/routes_strings.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:get/get_connect/http/src/multipart/form_data.dart' as dio;
@@ -20,7 +21,7 @@ class BottomTabBarController extends GetxController {
     currentIndex.value = index;
   }
 
-  HomeResponseModel homeResponseModel = HomeResponseModel();
+  Rx<HomeResponseModel> homeResponseModel = HomeResponseModel().obs;
   LoginResponse loginResponse = LoginResponse();
   ImageUploadResponse imageUploadResponse = ImageUploadResponse();
   GetMyOrderResponse getMyOrderResponse = GetMyOrderResponse();
@@ -33,7 +34,7 @@ class BottomTabBarController extends GetxController {
       isHeader: true
     ).then((value) async {
       isLoading.value = false;
-      homeResponseModel = HomeResponseModel.fromJson(value.data);
+      homeResponseModel.value = HomeResponseModel.fromJson(value.data);
     }).catchError((error) {
       isLoading.value = false;
       if (error is DioError) {
@@ -75,13 +76,14 @@ class BottomTabBarController extends GetxController {
 
   void updateUserCall({required UpdateUserRequestModel updateUserRequestModel}){
     DioHelper.postData(
-      url: RestConstants.updateUser,
+      url: '${RestConstants.updateUser}${updateUserRequestModel.id}',
       isHeader: true,
       data: updateUserRequestModel.toJson()
     ).then((value) async {
       isLoading.value = false;
       loginResponse = LoginResponse.fromJson(value.data);
       await saveLoginDataToSP(loginResponse);
+      Get.offAllNamed(RoutesConstants.mainScreen);
     }).catchError((error) {
       isLoading.value = false;
       if (error is DioError) {
@@ -89,7 +91,6 @@ class BottomTabBarController extends GetxController {
       }
     });
   }
-
 
   ///My order list get
   void getMyOrderCall(){

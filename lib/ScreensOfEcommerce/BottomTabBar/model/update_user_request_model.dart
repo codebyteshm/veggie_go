@@ -1,5 +1,6 @@
 class UpdateUserRequestModel {
   String? firstName;
+  String? id;
   String? lastName;
   String? email;
   String? phone;
@@ -8,6 +9,7 @@ class UpdateUserRequestModel {
   UpdateUserRequestModel(
       {this.firstName,
         this.lastName,
+        this.id,
         this.email,
         this.phone,
         this.profileImage});

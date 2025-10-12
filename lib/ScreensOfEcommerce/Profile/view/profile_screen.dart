@@ -3,6 +3,10 @@ import 'package:e_commerce46/Common/common_appbar.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/controller/bottom_tab_bar_controller.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/model/update_user_request_model.dart';
+import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,6 +25,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _lastNameController = TextEditingController(text: 'kaneriya');
   final TextEditingController _emailController = TextEditingController(text: 'Kalpankaneriya123@gmail.com');
   final TextEditingController _phoneController = TextEditingController(text: '+91 1234567890');
+  BottomTabBarController bottomTabBarController = Get.find<BottomTabBarController>();
+
+  User userDetail = User();
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+  getUserData()async{
+     LoginResponse loginResponse = await getLoginDataFromSP() ?? LoginResponse();
+     userDetail = loginResponse.data?.user ?? User();
+
+     _firstNameController.text = userDetail.firstName ?? '';
+     _lastNameController.text = userDetail.lastName ?? '';
+     _emailController.text = userDetail.email ?? '';
+     _phoneController.text = userDetail.phone ?? '';
+     setState(() {});
+  }
 
   @override
   void dispose() {
@@ -103,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         SizedBox(height: 16.h),
         Text(
-          'Kalapn Kaneriya',
+           '${userDetail.firstName} ${userDetail.lastName}',
           style: openSansSemiBold(
             textColor: color1C1C1C,
             fontSize: 20.sp,
@@ -111,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         SizedBox(height: 4.h),
         Text(
-          'Kalpankaneriya123@gmail.com',
+          '${userDetail.email}',
           style: openSansRegular(
             textColor: color6A6A6A,
             fontSize: 14.sp,
@@ -156,6 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(height: 10.h),
           _buildInputField(
             label: 'Phone Number',
+            readOnly: true,
             controller: _phoneController,
           ),
         ],
@@ -165,6 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildInputField({
     required String label,
+    bool readOnly = false,
     required TextEditingController controller,
   }) {
     return Column(
@@ -185,6 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           child: TextFormField(
             controller: controller,
+            readOnly: readOnly,
             style: openSansRegular(
               textColor: color1C1C1C,
               fontSize: 16.sp,
@@ -208,13 +235,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildSaveButton() {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 50.h,
       child: ElevatedButton(
         onPressed: () {
-          // Handle save changes
-          _showSaveSuccessDialog();
+            bottomTabBarController.updateProfile(updateUserRequestModel: UpdateUserRequestModel(
+              firstName: _firstNameController.text,
+              lastName: _lastNameController.text,
+              email: _emailController.text,
+              phone: _phoneController.text,
+              profileImage: 'https://api.veggigo.com${userDetail.profileImage}',
+              id : userDetail.id
+            ));
+
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: colorPrimary,
