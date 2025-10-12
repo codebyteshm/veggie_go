@@ -7,6 +7,7 @@ class RestConstants {
   static const String uploadImageUrl = '/upload/image';
   static const String verifyOtp = '/users/verify-otp';
   static const String refreshToken = 'users/refresh-token';
+  static const String updateUser = '/users/';
 
   ///Home
   static const String homeUrl = '/home';
