@@ -1,3 +1,4 @@
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,7 @@ const userIdKey = "userId";
 const forgotId = "forgotId";
 
 const String fcmTokenKey = "fcmTokenKey ";
+User currentUser = User();
 
 RxList addCountry = [].obs;
 RxList addSellers = [].obs;

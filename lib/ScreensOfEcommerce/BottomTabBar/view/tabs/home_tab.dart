@@ -1,21 +1,25 @@
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/common_widget.dart';
+import 'package:e_commerce46/Common/custom_dialog.dart';
 import 'package:e_commerce46/Common/customized_network_image.dart';
+import 'package:e_commerce46/Common/home_cards.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/text_style.dart';
-import 'package:e_commerce46/Common/home_cards.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/controller/bottom_tab_bar_controller.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Settings/delete_account_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Settings/privacy_policy_screen.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/Settings/terms_conditions_screen.dart';
+import 'package:e_commerce46/routes/routes_strings.dart' show RoutesConstants;
+import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/controller/bottom_tab_bar_controller.dart';
-import 'package:e_commerce46/routes/routes_strings.dart' show RoutesConstants;
-import 'package:e_commerce46/ScreensOfEcommerce/Settings/privacy_policy_screen.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Settings/terms_conditions_screen.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Settings/delete_account_screen.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -37,9 +41,11 @@ class _HomeTabState extends State<HomeTab> {
     bottomTabBarController.homeApiCall();
   }
 
-  getUserData()async{
-    var userData = await getLoginDataFromSP()?..data;
-    print(userData?.data?.user?.firstName);
+  getUserData() async {
+    var userData = await getLoginDataFromSP()
+      ?..data;
+    currentUser = userData?.data?.user ?? User();
+    setState(() {});
   }
 
   @override
@@ -60,7 +66,9 @@ class _HomeTabState extends State<HomeTab> {
         },
         onProfile: () {
           Get.back();
-          Get.toNamed(RoutesConstants.profile);
+          Get.toNamed(RoutesConstants.profile)?.then((onValue){
+            getUserData();
+          });
         },
         onWallet: () {
           final btc = Get.isRegistered<BottomTabBarController>() ? Get.find<BottomTabBarController>() : null;
@@ -80,133 +88,133 @@ class _HomeTabState extends State<HomeTab> {
           Get.to(() => const DeleteAccountScreen());
         },
         onLogout: () {
-          Get.back();
-          Get.offAllNamed(RoutesConstants.loginView);
-        }
-          // showModalBottomSheet<void>(
-          //     isScrollControlled: true,
-          //     backgroundColor: whiteColor,
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.only(
-          //         topRight: Radius.circular(16.r),
-          //         topLeft: Radius.circular(16.r),
-          //       ),
-          //     ),
-          //     context: context,
-          //     builder: (BuildContext context) {
-          //       return Padding(
-          //         padding: MediaQuery.of(context).viewInsets,
-          //         child: SizedBox(
-          //             height: 255.h,
-          //             child: Column(
-          //               children: [
-          //                 SizedBox(height: 20.h),
-          //                 Container(
-          //                   width: Get.width,
-          //                   color: Colors.transparent,
-          //                   child: Stack(
-          //                     children: [
-          //                       Column(
-          //                         children: [
-          //                           Center(
-          //                             child: Text(
-          //                               'logout',
-          //                               style: openSansBold(
-          //                                   fontSize: 18.sp, textColor: blackColor),
-          //                             ),
-          //                           ),
-          //                           heightBox(24.h),
-          //                           Text(
-          //                             'logoutSub',
-          //                             textAlign: TextAlign.center,
-          //                             style: openSansBold(
-          //                                 fontSize: 18.sp, textColor: color00394D),
-          //                           ),
-          //                           heightBox(40.h),
-          //                           CommonButton(
-          //                             onTap: () {},
-          //                             text: 'logout',
-          //                           )
-          //                         ],
-          //                       ),
-          //                       Positioned(
-          //                         right: 15.w,
-          //                         top: 5.h,
-          //                         child: InkWell(
-          //                           onTap: () {
-          //                             Get.back();
-          //                           },
-          //                           child: SvgPicture.asset(SVGImages.email),
-          //                         ),
-          //                       )
-          //                     ],
-          //                   ),
-          //                 ),
-          //               ],
-          //             )),
-          //       );
-          //     },
-          //   );}
+          logOut(context);
+        },
+        // showModalBottomSheet<void>(
+        //     isScrollControlled: true,
+        //     backgroundColor: whiteColor,
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.only(
+        //         topRight: Radius.circular(16.r),
+        //         topLeft: Radius.circular(16.r),
+        //       ),
+        //     ),
+        //     context: context,
+        //     builder: (BuildContext context) {
+        //       return Padding(
+        //         padding: MediaQuery.of(context).viewInsets,
+        //         child: SizedBox(
+        //             height: 255.h,
+        //             child: Column(
+        //               children: [
+        //                 SizedBox(height: 20.h),
+        //                 Container(
+        //                   width: Get.width,
+        //                   color: Colors.transparent,
+        //                   child: Stack(
+        //                     children: [
+        //                       Column(
+        //                         children: [
+        //                           Center(
+        //                             child: Text(
+        //                               'logout',
+        //                               style: openSansBold(
+        //                                   fontSize: 18.sp, textColor: blackColor),
+        //                             ),
+        //                           ),
+        //                           heightBox(24.h),
+        //                           Text(
+        //                             'logoutSub',
+        //                             textAlign: TextAlign.center,
+        //                             style: openSansBold(
+        //                                 fontSize: 18.sp, textColor: color00394D),
+        //                           ),
+        //                           heightBox(40.h),
+        //                           CommonButton(
+        //                             onTap: () {},
+        //                             text: 'logout',
+        //                           )
+        //                         ],
+        //                       ),
+        //                       Positioned(
+        //                         right: 15.w,
+        //                         top: 5.h,
+        //                         child: InkWell(
+        //                           onTap: () {
+        //                             Get.back();
+        //                           },
+        //                           child: SvgPicture.asset(SVGImages.email),
+        //                         ),
+        //                       )
+        //                     ],
+        //                   ),
+        //                 ),
+        //               ],
+        //             )),
+        //       );
+        //     },
+        //   );}
       ),
-      body: Container(
+      body: SizedBox(
         width: Get.width,
         height: Get.height,
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 205.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: colorPrimary,
-                  image: DecorationImage(image: AssetImage(PNGImages.homeBackground), fit: BoxFit.fill),
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16.r), bottomRight: Radius.circular(16.r)),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 50.h, left: 20.w, right: 20.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        GestureDetector(
-                          onTap: () => _scaffoldKey.currentState?.openDrawer(),
-                          child: SvgPicture.asset(SVGImages.sideManu),
-                        ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 205.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: colorPrimary,
+                image: DecorationImage(image: AssetImage(PNGImages.homeBackground), fit: BoxFit.fill),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16.r), bottomRight: Radius.circular(16.r)),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(top: 50.h, left: 20.w, right: 20.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        GestureDetector(onTap: () => _scaffoldKey.currentState?.openDrawer(), child: SvgPicture.asset(SVGImages.sideManu)),
                         Spacer(),
-                        SvgPicture.asset(SVGImages.filter)
-                      ]),
-                      heightBox(10.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 90.w),
-                        child: Image.asset(PNGImages.appLogo),
-                      ),
-                      heightBox(10.h),
-                      Text(
-                        'Hy, James',
-                        style: openSansMedium(fontSize: 14.sp, textColor: whiteColor),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Are You Looking ',
-                            style: openSansBold(fontSize: 18.sp, textColor: whiteColor),
-                          ),
-                          Text(
-                            'Shopping',
-                            style: openSansBold(fontSize: 18.sp, textColor: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        SvgPicture.asset(SVGImages.filter),
+                      ],
+                    ),
+                    heightBox(10.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 90.w),
+                      child: Image.asset(PNGImages.appLogo),
+                    ),
+                    heightBox(10.h),
+                    Text(
+                      'Hy, ${currentUser.firstName ?? ''}',
+                      style: openSansMedium(fontSize: 14.sp, textColor: whiteColor),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Are You Looking ',
+                          style: openSansBold(fontSize: 18.sp, textColor: whiteColor),
+                        ),
+                        Text(
+                          'Shopping',
+                          style: openSansBold(fontSize: 18.sp, textColor: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(10.w),
-                  child: SingleChildScrollView(
-                    child: Obx(
-                      ()=> Column(
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(10.w),
+                child: SingleChildScrollView(
+                  child: Obx(
+                    () => Skeletonizer(
+                      enabled: bottomTabBarController.isLoading.value,
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _banner(),
@@ -220,8 +228,10 @@ class _HomeTabState extends State<HomeTab> {
                             height: 120.h,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
-                              itemBuilder: (_, i) =>
-                                  HomeCategoryCard(imagePath: bottomTabBarController.homeResponseModel.value.data?.categories?[i].imageUrl ?? '', title: bottomTabBarController.homeResponseModel.value.data?.categories?[i].name ?? ''),
+                              itemBuilder: (_, i) => HomeCategoryCard(
+                                imagePath: bottomTabBarController.homeResponseModel.value.data?.categories?[i].imageUrl ?? '',
+                                title: bottomTabBarController.homeResponseModel.value.data?.categories?[i].name ?? '',
+                              ),
                               separatorBuilder: (_, __) => SizedBox(width: 12.w),
                               itemCount: bottomTabBarController.homeResponseModel.value.data?.categories?.length ?? 0,
                             ),
@@ -263,9 +273,9 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                 ),
               ),
-            ],
-          ),
-
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -289,19 +299,83 @@ class _HomeTabState extends State<HomeTab> {
           ),
         ),
         SizedBox(height: 8.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            bottomTabBarController.homeResponseModel.value.data?.bannerImage?.length ?? 0,
-            (i) => Container(
-              width: 6.w,
-              height: 6.w,
-              margin: EdgeInsets.symmetric(horizontal: 3.w),
-              decoration: BoxDecoration(color: i == _currentPage ? colorDC4326 : colorDFDFDF, shape: BoxShape.circle),
+        Skeleton.ignore(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              bottomTabBarController.homeResponseModel.value.data?.bannerImage?.length ?? 0,
+              (i) => Container(
+                width: 6.w,
+                height: 6.w,
+                margin: EdgeInsets.symmetric(horizontal: 3.w),
+                decoration: BoxDecoration(color: i == _currentPage ? colorDC4326 : colorDFDFDF, shape: BoxShape.circle),
+              ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  logOut(BuildContext context) {
+    return showModalBottomSheet<void>(
+      isScrollControlled: true,
+      backgroundColor: whiteColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(16.r),
+          topLeft: Radius.circular(16.r),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+            height: 200.h,
+            child: Column(
+              children: [
+                SizedBox(height: 8.h),
+                Container(
+                  height: 5,
+                  width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey.withValues(alpha: 0.60)
+                  ),
+                ),
+                SizedBox(height: 30.h),
+                Container(
+                  width: Get.width,
+                  color: Colors.transparent,
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Column(
+                          children: [
+                            Center(
+                              child: Text(
+                                'Are you sure you want logout your account?',textAlign: TextAlign.center,
+                                style: openSansBold(
+                                    fontSize: 18.sp, textColor: blackColor),
+                              ),
+                            ),
+                            heightBox(25.h),
+                            CommonButton(
+                              onTap: () async {
+                                Navigator.pop(context);
+                                bottomTabBarController.logoutCall();
+                              },
+                              text: 'Logout',
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ));
+      },
     );
   }
 }
@@ -362,18 +436,21 @@ class _AppDrawer extends StatelessWidget {
                       CircleAvatar(
                         radius: 20.w,
                         backgroundColor: colorPrimary.withOpacity(0.15),
-                        child: Padding(
-                          padding: EdgeInsets.all(6.w),
-                          child: Image.asset(PNGImages.appLogo),
-                        ),
+                        child: Padding(padding: EdgeInsets.all(6.w), child: Image.asset(PNGImages.appLogo)),
                       ),
                       SizedBox(width: 12.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('KALPAN KANERIYA', style: openSansBold(fontSize: 12.sp, textColor: color00394D)),
-                            Text('tedbostay@gmail.com', style: openSansMedium(fontSize: 11.sp, textColor: color969696)),
+                            Text(
+                              '${currentUser.firstName} ${currentUser.lastName}' ?? '',
+                              style: openSansBold(fontSize: 12.sp, textColor: color00394D),
+                            ),
+                            Text(
+                              currentUser.email ?? '',
+                              style: openSansMedium(fontSize: 11.sp, textColor: color969696),
+                            ),
                           ],
                         ),
                       ),
@@ -418,7 +495,7 @@ class _AppDrawer extends StatelessWidget {
     child: Column(
       children: [
         heightBox(5.h),
-        const Divider(height: 1, thickness: 1,color: colorE1E1E1,),
+        const Divider(height: 1, thickness: 1, color: colorE1E1E1),
         heightBox(5.h),
       ],
     ),
@@ -426,8 +503,11 @@ class _AppDrawer extends StatelessWidget {
 
   Widget _drawerItem({required String icon, required String label, required VoidCallback onTap}) {
     return ListTile(
-      leading: Image.asset(icon,height: 36.h ,width : 36.w,),
-      title: Text(label, style: openSansMedium(fontSize: 13.sp, textColor: color00394D)),
+      leading: Image.asset(icon, height: 36.h, width: 36.w),
+      title: Text(
+        label,
+        style: openSansMedium(fontSize: 13.sp, textColor: color00394D),
+      ),
       onTap: onTap,
       contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
       dense: true,

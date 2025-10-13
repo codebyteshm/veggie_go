@@ -196,7 +196,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
                       child: SvgPicture.asset(
                         widget.prefixIconName!,
                         color: widget.listOfFocusNode[widget.index].hasFocus
-                            ? colorDC4326
+                            ? colorPrimary
                             : color969696,
                         // color: widget.prefixIconColor,
                       ),

@@ -1,13 +1,9 @@
-
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_button.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
-import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_request.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/otpVerification/controller/otpVerification_controller.dart';
-import 'package:e_commerce46/routes/routes_strings.dart';
-// import 'package:e_commerce46/ScreensOfEcommerce/Home/view/test_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,75 +19,62 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: whiteColor,
-        extendBodyBehindAppBar: true,
-        appBar: const CommonAppBarWidget(
-          // toolbarHeight:20.h,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-          color: Colors.transparent, showBackButton: true,
-        ),
-        body: InkWell(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Obx(
-            () => Stack(
-              children: [
-                Container(
-                  width: Get.width,
-                  height: Get.height,
-                  color: whiteColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 85.h),
-                      Image.asset(
-                        PNGImages.otpBg,
-                        width: 192.w,
-                      ),
-                      SizedBox(height: 24.h),
-                      Text(
-                        oTPVerification,
-                        style: openSansBold(
-                          textColor: color00394D,
-                          fontSize: 24.sp,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: whiteColor,
+      extendBodyBehindAppBar: true,
+      appBar: const CommonAppBarWidget(
+        // toolbarHeight:20.h,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+        color: Colors.transparent,
+        showBackButton: true,
+      ),
+      body: InkWell(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child:Stack(
+            children: [
+              Container(
+                width: Get.width,
+                height: Get.height,
+                color: whiteColor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 85.h),
+                    Image.asset(PNGImages.otpBg, width: 192.w),
+                    SizedBox(height: 24.h),
+                    Text(
+                      oTPVerification,
+                      style: openSansBold(textColor: color00394D, fontSize: 24.sp),
+                    ),
+                    SizedBox(height: 5.h),
+                    Text(
+                      weJustSentYou,
+                      style: openSansMedium(textColor: colorPrimary.withOpacity(0.70), fontSize: 16.sp),
+                    ),
+                    SizedBox(height: 3.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          at,
+                          style: openSansMedium(textColor: color6A6A6A, fontSize: 16.sp),
                         ),
-                      ),
-                      SizedBox(height: 5.h),
-                      Text(
-                        weJustSentYou,
-                        style: openSansMedium(
-                          textColor: colorPrimary.withOpacity(0.70),
-                          fontSize: 16.sp,
+                        SizedBox(width: 4.w),
+                        Text(
+                          controller.phoneNumber,
+                          style: openSansBold(textColor: color282829, fontSize: 16.sp),
                         ),
-                      ),
-                      SizedBox(height: 3.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            at,
-                            style: openSansMedium(
-                              textColor: color6A6A6A,
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            controller.phoneNumber,
-                            style: openSansBold(
-                              textColor: color282829,
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 50.h),
-                      _buildOtpField(context),
-                      SizedBox(height: 50.h),
-                      CommonButton(
+                      ],
+                    ),
+                    SizedBox(height: 50.h),
+                    _buildOtpField(context),
+                    SizedBox(height: 50.h),
+                    Obx(
+                      () => CommonButton(
+                        showLoading: controller.isLoading.value,
                         onTap: () {
                           controller.onTapLoginButton();
                           // Get.toNamed(RoutesConstants.mainScreen, arguments: [false, 0, false]);
@@ -100,36 +83,26 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
                         buttonMargin: EdgeInsets.symmetric(horizontal: 20.w),
                         text: confirm,
                       ),
-                      SizedBox(height: 50.h),
-                      InkWell(
+                    ),
+                    SizedBox(height: 50.h),
+                    Obx(
+                      ()=> InkWell(
                         onTap: () {
-                          // controller.forgotPassword(
-                          //     forgotRequestModel: ForgotRequestModel(
-                          //         countryCode: controller.email[4],
-                          //         phoneNumber: controller.email[5]));
+                          controller.sendOtp();
                         },
                         child: Text(
                           resendOTP,
-                          style: openSansMedium(
-                            textColor: color6A6A6A,
-                            fontSize: 14.sp,
-                          ),
+                          style: openSansBold(textColor: controller.isResendLoading.value == false ? Colors.black : color6A6A6A, fontSize: 14.sp,),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                controller.isLoading.value
-                    ? Center(
-                        child: CircularProgressIndicator(
-                        strokeWidth: 4.w,
-                        color: colorDC4326,
-                      ))
-                    : const Offstage()
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+      ),
+    );
   }
 
   Widget _buildOtpField(BuildContext context) {
@@ -147,23 +120,22 @@ class OtpVerificationView extends GetView<OtpVerificationController> {
             focusNode: controller.otpNode,
             errorAnimationController: controller.errorController,
             pinTheme: PinTheme(
-                fieldWidth: 40.w,
-                errorBorderColor: Colors.white,
-                disabledColor: Colors.red,
-                shape: PinCodeFieldShape.underline,
-                activeFillColor: whiteColor,
-                inactiveColor: colorDFDFDF,
-                selectedFillColor: whiteColor,
-                selectedColor: colorDFDFDF,
-                inactiveFillColor: whiteColor,
-                activeColor: colorDC4326,
-                borderWidth: 1.h),
+              fieldWidth: 40.w,
+              errorBorderColor: Colors.white,
+              disabledColor: Colors.red,
+              shape: PinCodeFieldShape.underline,
+              activeFillColor: whiteColor,
+              inactiveColor: Colors.grey,
+              selectedFillColor: whiteColor,
+              selectedColor: colorPrimary,
+              inactiveFillColor: whiteColor,
+              activeColor: colorPrimary,
+              borderWidth: 1.h,
+            ),
             cursorColor: blackColor,
             textInputAction: TextInputAction.done,
             keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ],
+            inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
             autoFocus: false,
             enableActiveFill: true,
             enablePinAutofill: true,

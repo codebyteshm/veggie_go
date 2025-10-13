@@ -40,8 +40,7 @@ class LoginView extends GetView<LoginController> {
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: Obx(
-              () =>
+        child:
               Stack(
                 children: [
                   SizedBox(
@@ -99,28 +98,31 @@ class LoginView extends GetView<LoginController> {
                                     SizedBox(height: 20.h),
                                     _getPhoneNumber(),
                                     SizedBox(height: 24.h),
-                                    CommonButton(
-                                      onTap: () async {
-                                        FocusScope.of(context).requestFocus(FocusNode());
-                                        if (SharedPreferenceUtil.getString(fcmTokenKey) == "") {
-                                          String? fcmToken = '';
-                                          // String? fcmToken = await FirebaseMessaging.instance.getToken();
-                                          print("FCM Token: $fcmToken");
-                                          await SharedPreferenceUtil.putString(fcmTokenKey, fcmToken);
-                                        }
-                                        controller.onTapLoginButton(
-                                          LoginRequestModel(
-                                            code: "+91",
-                                            phone: controller.phoneNumberController.text,
-                                            platform: Platform.isAndroid ? 'android' : 'ios',
-                                            deviceId: await Utils.getDeviceId() ?? "",
-                                            fcmToken: SharedPreferenceUtil.getString(fcmTokenKey),
-                                          ),
-                                        );
-                                        // isUserLogin = true;
-                                      },
-                                      buttonMargin: EdgeInsets.zero,
-                                      text: logIn,
+                                    Obx(
+                                      ()=> CommonButton(
+                                        showLoading: controller.isLoading.value,
+                                        onTap: () async {
+                                          FocusScope.of(context).requestFocus(FocusNode());
+                                          if (SharedPreferenceUtil.getString(fcmTokenKey) == "") {
+                                            String? fcmToken = '';
+                                            // String? fcmToken = await FirebaseMessaging.instance.getToken();
+                                            print("FCM Token: $fcmToken");
+                                            await SharedPreferenceUtil.putString(fcmTokenKey, fcmToken);
+                                          }
+                                          controller.onTapLoginButton(
+                                            LoginRequestModel(
+                                              code: "+91",
+                                              phone: controller.phoneNumberController.text,
+                                              platform: Platform.isAndroid ? 'android' : 'ios',
+                                              deviceId: await Utils.getDeviceId() ?? "",
+                                              fcmToken: SharedPreferenceUtil.getString(fcmTokenKey),
+                                            ),
+                                          );
+                                          // isUserLogin = true;
+                                        },
+                                        buttonMargin: EdgeInsets.zero,
+                                        text: logIn,
+                                      ),
                                     ),
                                     SizedBox(height: 42.h),
                                     Row(
@@ -169,13 +171,7 @@ class LoginView extends GetView<LoginController> {
                       ],
                     ),
                   ),
-                  controller.isLoading.value
-                      ? Center(
-                    child: CircularProgressIndicator(strokeWidth: 4.w, color: colorDC4326),
-                  )
-                      : const Offstage(),
                 ],
-              ),
         ),
       ),
     );

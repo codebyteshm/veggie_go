@@ -7,6 +7,7 @@ import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/model/update_user_r
 import 'package:e_commerce46/ScreensOfEcommerce/repo/dio_helper.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
+import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:get/get_connect/http/src/multipart/form_data.dart' as dio;
@@ -37,6 +38,21 @@ class BottomTabBarController extends GetxController {
       homeResponseModel.value = HomeResponseModel.fromJson(value.data);
     }).catchError((error) {
       isLoading.value = false;
+      if (error is DioError) {
+          error.response?.data['message'].toString().toast();
+      }
+    });
+  }
+
+  void logoutCall(){
+    DioHelper.postData(
+      url: RestConstants.logout,
+      isHeader: true
+    ).then((value) async {
+      await SharedPreferenceUtil.remove(isLoginKey);
+      await SharedPreferenceUtil.clear();
+      Get.offAllNamed(RoutesConstants.loginView);
+    }).catchError((error) {
       if (error is DioError) {
           error.response?.data['message'].toString().toast();
       }

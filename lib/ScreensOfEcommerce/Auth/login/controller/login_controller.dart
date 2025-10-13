@@ -21,7 +21,7 @@ class LoginController extends GetxController {
   // Rx<Country> selectedDialogCountry = CountryPickerUtils.getCountryByPhoneCode('974').obs;
 
   LoginResponse? loginModel;
-  SendOtpModelResponse? sendOtpModelResponse;
+    SendOtpModelResponse? sendOtpModelResponse;
   final isHidden = true.obs;
 
   void togglePasswordView() {
@@ -66,7 +66,7 @@ class LoginController extends GetxController {
         .catchError((error) {
           isLoading.value = false;
           if (error is DioError) {
-            Utils.showErrorSnackBar(error.response?.data['message']);
+            error.response?.data['message'].toString().toast();
           }
         });
   }

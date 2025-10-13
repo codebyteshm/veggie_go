@@ -19,15 +19,14 @@ import '../../../../utils/utills.dart';
 class OtpVerificationController extends GetxController {
   TextEditingController otpController = TextEditingController();
   FocusNode otpNode = FocusNode();
-  StreamController<ErrorAnimationType> errorController =
-      StreamController<ErrorAnimationType>.broadcast();
+  StreamController<ErrorAnimationType> errorController = StreamController<ErrorAnimationType>.broadcast();
   RxBool isLoading = false.obs;
+  RxBool isResendLoading = false.obs;
   var phoneNumber;
 
   @override
   void onInit() {
     phoneNumber = Get.arguments[0];
-    // otpController.text = email[2].toString();
     super.onInit();
   }
 
@@ -35,30 +34,49 @@ class OtpVerificationController extends GetxController {
 
   void verifyOtpApiCall({required LoginRequestModel loginRequestModel}) {
     isLoading.value = true;
-    DioHelper.postData(
-      url: RestConstants.verifyOtp,
-      data: loginRequestModel.toJson(),
-    ).then((value) async {
-      isLoading.value = false;
-      loginResponse = LoginResponse.fromJson(value.data);
-      await saveLoginDataToSP(loginResponse!);
-      SharedPreferenceUtil.putBool(isLoginKey, true);
-      if(loginResponse?.data?.user?.role == "USER"){
-        Get.offAllNamed(RoutesConstants.mainScreen);
-      }else{
-        Get.offAllNamed(RoutesConstants.partnerBottomTabBarScreen);
-      }
-    }).catchError((error) {
-      isLoading.value = false;
-      if (error is DioError) {
-          error.response?.data['message'].toString().toast;
-      }
-    });
+    DioHelper.postData(url: RestConstants.verifyOtp, data: loginRequestModel.toJson())
+        .then((value) async {
+          isLoading.value = false;
+          loginResponse = LoginResponse.fromJson(value.data);
+          await saveLoginDataToSP(loginResponse!);
+          SharedPreferenceUtil.putBool(isLoginKey, true);
+          if (loginResponse?.data?.user?.role == "USER") {
+            Get.offAllNamed(RoutesConstants.mainScreen);
+          } else {
+            Get.offAllNamed(RoutesConstants.partnerBottomTabBarScreen);
+          }
+        })
+        .catchError((error) {
+          isLoading.value = false;
+          if (error is DioError) {
+            error.response?.data['message'].toString().toast();
+          }
+        });
+  }
+
+  SendOtpModelResponse? sendOtpModelResponse;
+
+  void sendOtp() {
+    isResendLoading.value = true;
+    DioHelper.postData(url: RestConstants.loginUrl, data: {"phone": phoneNumber})
+        .then((value) async {
+      isResendLoading.value = false;
+          sendOtpModelResponse = SendOtpModelResponse.fromJson(value.data);
+          if (sendOtpModelResponse?.status == true) {
+            'OTP sent successfully'.toast();
+          }
+        })
+        .catchError((error) {
+      isResendLoading.value = false;
+          if (error is DioError) {
+            error.response?.data['message'].toString().toast();
+          }
+        });
   }
 
   bool isValidateLogin({required String otp}) {
     if (otp.isEmpty || otp == "") {
-      Utils.showErrorSnackBar('Please enter otp');
+      'Please enter otp'.toast();
       return false;
     }
 
@@ -66,16 +84,14 @@ class OtpVerificationController extends GetxController {
   }
 
   Future<void> onTapLoginButton() async {
-    if (isValidateLogin(
-      otp: otpController.text,
-    )) {
+    if (isValidateLogin(otp: otpController.text)) {
       verifyOtpApiCall(
         loginRequestModel: LoginRequestModel(
           code: otpController.text,
-            phone: phoneNumber,
-            platform: Platform.isAndroid ? 'android' : 'ios',
-            deviceId: await Utils.getDeviceId() ?? "",
-        fcmToken: SharedPreferenceUtil.getString(fcmTokenKey),
+          phone: phoneNumber,
+          platform: Platform.isAndroid ? 'android' : 'ios',
+          deviceId: await Utils.getDeviceId() ?? "",
+          fcmToken: SharedPreferenceUtil.getString(fcmTokenKey),
         ),
       );
     }

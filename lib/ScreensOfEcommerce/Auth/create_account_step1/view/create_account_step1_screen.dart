@@ -96,13 +96,16 @@ class CreateAccountStep1View extends GetView<CreateAccountStep1Controller> {
                                 SizedBox(height: 16.h),
                                 _referral(),
                                 SizedBox(height: 24.h),
-                                CommonButton(
-                                  onTap: controller.onNext,
-                                  text: next,
-                                  backgroundColor: colorPrimary,
-                                  textColor: whiteColor,
-                                  height: 48.h,
-                                  width: Get.width,
+                                Obx(
+                                  ()=> CommonButton(
+                                    showLoading: controller.isLoading.value,
+                                    onTap: controller.onNext,
+                                    text: next,
+                                    backgroundColor: colorPrimary,
+                                    textColor: whiteColor,
+                                    height: 48.h,
+                                    width: Get.width,
+                                  ),
                                 ),
                                 SizedBox(height: 24.h),
                                 Center(
@@ -127,9 +130,6 @@ class CreateAccountStep1View extends GetView<CreateAccountStep1Controller> {
                   ],
                 ),
               ),
-              controller.isLoading.value
-                  ? Center(child: CircularProgressIndicator(strokeWidth: 4.w, color: colorDC4326))
-                  : const Offstage(),
             ],
           ),
         ),

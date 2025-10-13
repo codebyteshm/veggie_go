@@ -1,6 +1,7 @@
 
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'color.dart';
@@ -48,3 +49,20 @@ Widget titleViewAll({
     ),
   );
 }
+
+
+Future cupertinoAlertDialog({
+  required List<Widget> actions,
+  required Widget title,
+  required Widget content,
+  bool? barrierDismissible,
+  required BuildContext context
+}) {
+  return showCupertinoModalPopup(
+    barrierDismissible: barrierDismissible ?? true,
+    context: context,
+    builder: (BuildContext context) =>
+        CupertinoAlertDialog(title: title, content: content, actions: actions),
+  );
+}
+
