@@ -51,7 +51,7 @@ class User {
   String? email;
   int? loginCount;
   String? profileImage;
-  Null? referredByCode;
+  String? referredByCode;
   String? referralCode;
   String? role;
   String? fcmToken;

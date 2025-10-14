@@ -8,7 +8,7 @@ const liveLang = "liveLang";
 const userIdKey = "userId";
 
 const forgotId = "forgotId";
-
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 const String fcmTokenKey = "fcmTokenKey ";
 User currentUser = User();
 

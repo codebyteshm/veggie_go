@@ -1,6 +1,7 @@
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/home_cards.dart';
 import 'package:e_commerce46/Common/text_style.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/controller/bottom_tab_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,13 @@ class ProductTab extends StatefulWidget {
 class _ProductTabState extends State<ProductTab> {
   final TextEditingController _searchController = TextEditingController();
   final ProductTabController _controller = Get.put(ProductTabController());
+  // BottomTabBarController controller = Get.find<BottomTabBarController>();
+
+  @override
+  void initState() {
+    // _controller.c
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

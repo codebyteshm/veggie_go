@@ -1,6 +1,7 @@
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/image.dart';
 import 'package:e_commerce46/Common/text_style.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -61,6 +62,23 @@ class ProductTabController extends GetxController {
       }
     });
   }
+
+  ///Home data get
+  // void homeApiCall(){
+  //   isLoading.value = true;
+  //   DioHelper.getData(
+  //       url: RestConstants.productLisUrl,
+  //       isHeader: true
+  //   ).then((value) async {
+  //     isLoading.value = false;
+  //     homeResponseModel.value = HomeResponseModel.fromJson(value.data);
+  //   }).catchError((error) {
+  //     isLoading.value = false;
+  //     if (error is DioError) {
+  //       error.response?.data['message'].toString().toast();
+  //     }
+  //   });
+  // }
 
   Widget _categorySheet(String tempSelected, void Function(String) onSelect) {
     return Padding(

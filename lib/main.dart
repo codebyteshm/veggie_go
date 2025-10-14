@@ -1,5 +1,6 @@
 import 'package:e_commerce46/routes/navigation_pages.dart';
 import 'package:e_commerce46/routes/routes_strings.dart';
+import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,8 +61,8 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-
             title: VeggigoApplicants,
+            navigatorKey: rootNavigatorKey,
             theme: AppTheme.lightTheme, initialRoute: RoutesConstants.splashScreen, getPages: GetPages.getPages);
       },
     );

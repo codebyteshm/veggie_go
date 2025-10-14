@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
       Timer(const Duration(seconds: 3), () {
         if(SharedPreferenceUtil.getBool(isLoginKey)){
           // Get.offAllNamed(RoutesConstants.partnerBottomTabBarScreen);
-          Get.offAllNamed(RoutesConstants.loginView);
+          Get.offAllNamed(RoutesConstants.mainScreen);
         }else {
           Get.offAllNamed(RoutesConstants.loginView);
         }

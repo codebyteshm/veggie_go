@@ -1,11 +1,17 @@
+import 'dart:io';
+
+import 'package:e_commerce46/Common/app_network_image.dart';
 import 'package:e_commerce46/Common/color.dart';
 import 'package:e_commerce46/Common/common_appbar.dart';
 import 'package:e_commerce46/Common/image.dart';
+import 'package:e_commerce46/Common/image_selection_dialog.dart';
 import 'package:e_commerce46/Common/strings.dart';
 import 'package:e_commerce46/Common/text_style.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/Auth/login/controller/login_response.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/controller/bottom_tab_bar_controller.dart';
 import 'package:e_commerce46/ScreensOfEcommerce/BottomTabBar/model/update_user_request_model.dart';
+import 'package:e_commerce46/ScreensOfEcommerce/repo/rest_constants.dart';
+import 'package:e_commerce46/utils/key.dart';
 import 'package:e_commerce46/utils/shared_preference_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _emailController = TextEditingController(text: 'Kalpankaneriya123@gmail.com');
   final TextEditingController _phoneController = TextEditingController(text: '+91 1234567890');
   BottomTabBarController bottomTabBarController = Get.find<BottomTabBarController>();
+  String _imagePath = '';
 
   User userDetail = User();
 
@@ -38,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   getUserData()async{
      LoginResponse loginResponse = await getLoginDataFromSP() ?? LoginResponse();
      userDetail = loginResponse.data?.user ?? User();
+     currentUser = userDetail;
 
      _firstNameController.text = userDetail.firstName ?? '';
      _lastNameController.text = userDetail.lastName ?? '';
@@ -79,6 +87,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Future<void> onImageSelection(BuildContext context) async {
+    dynamic getImage = await ImageSelectDialog.onImageSelection(mainContext: context);
+
+    if (getImage != null && getImage is String) {
+      _imagePath = getImage;
+    }
+    setState(() {});
+  }
+
   Widget _buildProfileHeader() {
     return Column(
       children: [
@@ -93,34 +110,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50.w),
-                child: Image.asset(
-                  'assets/images/profile_placeholder.png',
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color: colorF5F5F5,
-                      child: Icon(
-                        Icons.person,
-                        size: 50.w,
-                        color: color6A6A6A,
-                      ),
-                    );
-                  },
-                ),
+                child:  _imagePath.isEmpty
+                    ? AppNetworkImage(
+                    url: '${RestConstants.imageDomain}${userDetail.profileImage}' ?? '',
+                    height: 80.h,
+                    width: 80.w,
+                    fit: BoxFit.cover, shape: BoxShape.circle) : Container(
+                  width: 80.w,
+                  height: 80.w,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color:
+                      Colors.transparent,
+                      image: DecorationImage(
+                          image: Image.file(File(_imagePath)).image,
+                          fit: BoxFit.cover)),
+                )
               ),
             ),
             Positioned(
               bottom: 0,
               right: 0,
-              child: Container(
-                width: 32.w,
-                height: 32.w,
-                decoration: BoxDecoration(
-                  color: Color(0xFF4CAF50),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: whiteColor, width: 2),
+              child: GestureDetector(
+                onTap: (){
+                  onImageSelection(context);
+                },
+                child: Container(
+                  width: 32.w,
+                  height: 32.w,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF4CAF50),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: whiteColor, width: 2),
+                  ),
+                  child: Image.asset(PNGImages.icEditImage)
                 ),
-                child: Image.asset(PNGImages.icEditImage)
               ),
             ),
           ],
@@ -245,7 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               lastName: _lastNameController.text,
               email: _emailController.text,
               phone: _phoneController.text,
-              profileImage: 'https://api.veggigo.com${userDetail.profileImage}',
+              profileImage: _imagePath,
               id : userDetail.id
             ));
 

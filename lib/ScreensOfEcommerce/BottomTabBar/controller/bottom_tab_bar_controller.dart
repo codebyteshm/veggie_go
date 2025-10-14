@@ -15,7 +15,6 @@ import 'package:get/get_connect/http/src/multipart/form_data.dart' as dio;
 class BottomTabBarController extends GetxController {
   final RxInt currentIndex = 0.obs;
   RxBool profileImageChanges = false.obs;
-  final profileImage = "".obs;
   RxBool isLoading = false.obs;
 
   void onTabSelected(int index) {
@@ -63,9 +62,10 @@ class BottomTabBarController extends GetxController {
     isLoading.value = true;
 
     FormData formData = FormData();
-    if (profileImage.value != null && profileImage.isNotEmpty && !profileImage.value.startsWith("http")) {
-      formData.files.add(MapEntry("image", await MultipartFile.fromFile(profileImage.value)));
+    if (updateUserRequestModel.profileImage != null && updateUserRequestModel.profileImage.toString().isNotEmpty && !updateUserRequestModel.profileImage.toString().startsWith("http")) {
+      formData.files.add(MapEntry("image", await MultipartFile.fromFile(updateUserRequestModel.profileImage ?? '')));
 
+      print(formData);
       DioHelper.postData(
         url: RestConstants.uploadImageUrl,
         isHeader: true,

@@ -13,6 +13,10 @@ class RestConstants {
   ///Home
   static const String homeUrl = '/home';
 
+  ///Product
+  static const String productLisUrl = '/products';
+
   ///Order
   static const String getMyOrderUrl = '/orders/my-orders';
+  static const String imageDomain = 'https://api.veggigo.com';
 }
